@@ -6,6 +6,8 @@ import * as schema from '../shared/schema';
 let _db: any = null;
 
 // Lazy initialization for serverless environments
+// We use a Proxy to delay the initialization of the database connection until it's actually used.
+// This is critical for serverless cold starts and avoiding crashes when environment variables are missing.
 export const db = new Proxy({} as any, {
   get(target, prop) {
     // Return early for standard JS properties to avoid accidental activation
@@ -16,17 +18,22 @@ export const db = new Proxy({} as any, {
     if (!_db) {
       const url = process.env.DATABASE_URL;
       if (!url) {
-        console.warn("⚠️ DATABASE_URL is missing. DB operations will fail.");
-        // We throw a descriptive error here instead of calling neon(undefined)
         throw new Error("DATABASE_URL is not set. Please add it to your Netlify Environment Variables.");
       }
 
       console.log(`📡 DB Initializing with URL (length: ${url.length})`);
-      const sql = neon(url);
-      _db = drizzle(sql, { schema });
+      try {
+        const sql = neon(url);
+        _db = drizzle(sql, { schema });
+      } catch (err: any) {
+        console.error("❌ Failed to initialize Drizzle with Neon:", err);
+        throw new Error(`Database Initialization Failed: ${err.message}`);
+      }
     }
 
-    return _db[prop];
+    const value = _db[prop];
+    // CRITICAL: Bind functions to the actual _db instance so 'this' works correctly inside Drizzle
+    return typeof value === 'function' ? value.bind(_db) : value;
   }
 });
 

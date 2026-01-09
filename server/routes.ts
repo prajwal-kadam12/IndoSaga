@@ -590,21 +590,28 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Health check endpoint
   app.get("/api/health", async (req, res) => {
     try {
+      console.log("Health check requested...");
       const storage = await getStorage();
-      const products = await storage.getProducts({ limit: 1 } as any);
+      const allProducts = await storage.getProducts();
+      const featuredProducts = await storage.getFeaturedProducts();
+
       res.json({
         status: "ok",
         database: "connected",
-        productCount: products.length,
+        totalProducts: allProducts.length,
+        featuredCount: featuredProducts.length,
         env: process.env.NODE_ENV,
-        databaseUrlSet: !!process.env.DATABASE_URL
+        databaseUrlSet: !!process.env.DATABASE_URL,
+        timestamp: new Date().toISOString()
       });
     } catch (error: any) {
+      console.error("HEALTH_CHECK_ERROR:", error);
       res.status(500).json({
         status: "error",
         database: "disconnected",
         error: error.message,
-        hint: "Check DATABASE_URL in Netlify environment variables."
+        hint: "Check DATABASE_URL in Netlify environment variables.",
+        details: error.toString()
       });
     }
   });
@@ -719,6 +726,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       };
 
       const products = await (await getStorage()).getProducts(filters);
+      console.log(`API: Fetching products with filters: ${JSON.stringify(filters)}. Found: ${products.length}`);
       res.json(products);
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -729,6 +737,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/products/featured", async (req, res) => {
     try {
       const products = await (await getStorage()).getFeaturedProducts();
+      console.log(`API: Fetching featured products. Found: ${products.length}`);
       res.json(products);
     } catch (error) {
       console.error("Error fetching featured products:", error);

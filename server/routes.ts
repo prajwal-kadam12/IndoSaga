@@ -618,7 +618,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({
         status: "error",
         database: "disconnected",
-        error: error.message,
+        error: `NEON_DRV_FIX: ${error.message}`,
         hint: "Check DATABASE_URL in Netlify environment variables.",
         details: error.toString()
       });

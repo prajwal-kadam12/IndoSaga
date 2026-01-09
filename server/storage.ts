@@ -107,6 +107,5 @@ export const getStorage = async (): Promise<IStorage> => {
   return storageInstance!;
 };
 
-// Default export as JSONStorage for initial load if needed, 
-// though getStorage() is the preferred way.
-export const storage = new DrizzleStorage();
+// Default export as JSONStorage removed to prevent premature DB access during module load
+// Use getStorage() instead.

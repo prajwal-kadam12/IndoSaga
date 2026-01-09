@@ -2,7 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import session from "express-session";
 import multer from "multer";
-import sharp from "sharp";
+// import sharp from "sharp"; // Moved to dynamic import in route
 import { getStorage } from "./storage";
 
 // Import API routes
@@ -261,8 +261,17 @@ console.log('Auth0 Config:', {
 async function findSimilarProductsByImage(imageBuffer: Buffer) {
   try {
     // Extract basic image properties for analysis
+    let sharp;
+    try {
+      sharp = (await import('sharp')).default;
+    } catch (err) {
+      console.warn("Sharp not available for findSimilarProductsByImage, falling back to random matching");
+      // Fallback: return some random products if sharp fails
+      const allProducts = await (await getStorage()).getProducts({});
+      return allProducts.sort(() => 0.5 - Math.random()).slice(0, 8);
+    }
     const image = sharp(imageBuffer);
-    const { width, height, channels } = await image.metadata();
+    const { width, height } = await image.metadata();
 
     // Get dominant colors and basic properties
     const { dominant } = await image.stats();
@@ -794,6 +803,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       // Process the uploaded image using Sharp for analysis
       const imageBuffer = req.file.buffer;
+
+      // Dynamic import to prevent crash if sharp is not available in environment
+      let sharp;
+      try {
+        sharp = (await import('sharp')).default;
+      } catch (err) {
+        console.error("Sharp initialization failed:", err);
+        return res.status(500).json({
+          message: "Image search is currently unavailable",
+          error: "Native library 'sharp' not found in environment."
+        });
+      }
+
       const imageMetadata = await sharp(imageBuffer).metadata();
 
       console.log("Image metadata:", {

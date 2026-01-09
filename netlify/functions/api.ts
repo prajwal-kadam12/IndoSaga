@@ -29,9 +29,24 @@ export const handler: any = async (event: any, context: any) => {
     try {
         if (!initialized) {
             console.log("Initializing lambda app...");
+
+            // Check for DB URL before initializing
+            if (!process.env.DATABASE_URL) {
+                console.error("FATAL: DATABASE_URL is missing in Netlify environment!");
+                return {
+                    statusCode: 500,
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        message: "Configuration Error",
+                        error: "DATABASE_URL is not set. Please add it in Netlify Dashboard -> Site Settings -> Environment Variables.",
+                        hint: "Use the 'Pooled connection string' from Neon for serverless functions."
+                    })
+                };
+            }
+
             await registerRoutes(app);
             initialized = true;
-            console.log("Lambda app initialized.");
+            console.log("Lambda app initialized successfully.");
         }
 
         // Remove /.netlify/functions/api prefix if present

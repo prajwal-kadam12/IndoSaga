@@ -1,0 +1,741 @@
+{
+  "categories": [
+    {
+      "id": "2e28cd03-79c6-48f4-9d0b-2e54df7be807",
+      "name": "Dining Tables",
+      "description": "Premium teak dining tables for your family",
+      "createdAt": "2025-09-09T09:14:47.759Z"
+    },
+    {
+      "id": "12ddde7c-df69-4520-a271-33ff87271f61",
+      "name": "Chairs",
+      "description": "Comfortable and elegant teak chairs",
+      "createdAt": "2025-09-09T09:14:47.759Z"
+    },
+    {
+      "id": "f87d2687-bc99-4378-9dcf-462af881a51b",
+      "name": "Wardrobes",
+      "description": "Spacious teak wardrobes for storage",
+      "createdAt": "2025-09-09T09:14:47.759Z"
+    },
+    {
+      "id": "f44afe1f-1018-4c6c-9fd2-05959bbe41ab",
+      "name": "Beds",
+      "description": "Luxurious teak beds for ultimate comfort",
+      "createdAt": "2025-09-09T09:14:47.759Z"
+    },
+    {
+      "id": "4f51b3f6-d533-46bb-be7f-6158ee2e7203",
+      "name": "Sofas",
+      "description": "Stylish teak sofas for your living room",
+      "createdAt": "2025-09-09T09:14:47.759Z"
+    },
+    {
+      "id": "24b2ab4d-890c-4634-b1a5-203c373c6a78",
+      "name": "Cabinets",
+      "description": "Functional teak cabinets for organization",
+      "createdAt": "2025-09-09T09:14:47.759Z"
+    }
+  ],
+  "subcategories": [
+    {
+      "id": "9adf3fea-40e6-492d-882c-a290ab640d0f",
+      "name": "4-Seater Tables",
+      "categoryId": "2e28cd03-79c6-48f4-9d0b-2e54df7be807",
+      "description": "Perfect for small families",
+      "imageUrl": "/images/dining-table.webp",
+      "createdAt": "2025-09-09T09:14:47.833Z"
+    },
+    {
+      "id": "55d0964a-d461-4572-891d-90f1dd6d0d6b",
+      "name": "6-Seater Tables",
+      "categoryId": "2e28cd03-79c6-48f4-9d0b-2e54df7be807",
+      "description": "Ideal for medium families",
+      "imageUrl": "/images/dining-table.webp",
+      "createdAt": "2025-09-09T09:14:47.833Z"
+    },
+    {
+      "id": "215428a9-ede4-4106-96b2-b7b31ed3ddbb",
+      "name": "8-Seater Tables",
+      "categoryId": "2e28cd03-79c6-48f4-9d0b-2e54df7be807",
+      "description": "Great for large families",
+      "imageUrl": "/images/dining-table.webp",
+      "createdAt": "2025-09-09T09:14:47.833Z"
+    },
+    {
+      "id": "0d810bbb-6e7c-480c-a176-cabbd31cc3ae",
+      "name": "Round Tables",
+      "categoryId": "2e28cd03-79c6-48f4-9d0b-2e54df7be807",
+      "description": "Classic round dining tables",
+      "imageUrl": "/images/dining-table.webp",
+      "createdAt": "2025-09-09T09:14:47.833Z"
+    },
+    {
+      "id": "d6412d29-0372-4036-8bd1-b731307e4b71",
+      "name": "Rectangular Tables",
+      "categoryId": "2e28cd03-79c6-48f4-9d0b-2e54df7be807",
+      "description": "Traditional rectangular designs",
+      "imageUrl": "/images/dining-table.webp",
+      "createdAt": "2025-09-09T09:14:47.833Z"
+    },
+    {
+      "id": "5f189a96-16a6-4886-9291-94d08eab5402",
+      "name": "Dining Chairs",
+      "categoryId": "12ddde7c-df69-4520-a271-33ff87271f61",
+      "description": "Comfortable dining chairs",
+      "imageUrl": "/images/chair-set.jpg",
+      "createdAt": "2025-09-09T09:14:47.833Z"
+    },
+    {
+      "id": "6768b387-f08d-4b69-9749-b05b8016dfe5",
+      "name": "Office Chairs",
+      "categoryId": "12ddde7c-df69-4520-a271-33ff87271f61",
+      "description": "Ergonomic office chairs",
+      "imageUrl": "/images/modern-chairs.webp",
+      "createdAt": "2025-09-09T09:14:47.833Z"
+    },
+    {
+      "id": "ef49e3bb-7ca4-4b15-a2b6-2dceda2d85f3",
+      "name": "Lounge Chairs",
+      "categoryId": "12ddde7c-df69-4520-a271-33ff87271f61",
+      "description": "Relaxing lounge chairs",
+      "imageUrl": "/images/chair-set.jpg",
+      "createdAt": "2025-09-09T09:14:47.833Z"
+    },
+    {
+      "id": "a435a5e3-d3c5-4d77-9ada-461cd12a60af",
+      "name": "Bar Stools",
+      "categoryId": "12ddde7c-df69-4520-a271-33ff87271f61",
+      "description": "Stylish bar stools",
+      "imageUrl": "/images/chair-set.jpg",
+      "createdAt": "2025-09-09T09:14:47.833Z"
+    },
+    {
+      "id": "90a2a824-3f46-4c49-be71-1439efb20cdb",
+      "name": "Rocking Chairs",
+      "categoryId": "12ddde7c-df69-4520-a271-33ff87271f61",
+      "description": "Traditional rocking chairs",
+      "imageUrl": "/images/chair-set.jpg",
+      "createdAt": "2025-09-09T09:14:47.833Z"
+    },
+    {
+      "id": "0c6cd80a-197e-4044-8d48-9e0f2908f215",
+      "name": "2-Door Wardrobes",
+      "categoryId": "f87d2687-bc99-4378-9dcf-462af881a51b",
+      "description": "Compact 2-door designs",
+      "imageUrl": "/images/wardrobe.webp",
+      "createdAt": "2025-09-09T09:14:47.833Z"
+    },
+    {
+      "id": "029d3af2-fcde-475d-8588-199d70ce2f8d",
+      "name": "3-Door Wardrobes",
+      "categoryId": "f87d2687-bc99-4378-9dcf-462af881a51b",
+      "description": "Medium 3-door wardrobes",
+      "imageUrl": "/images/wardrobe.webp",
+      "createdAt": "2025-09-09T09:14:47.833Z"
+    },
+    {
+      "id": "009d8196-db3b-438d-a55a-946c5e353fac",
+      "name": "4-Door Wardrobes",
+      "categoryId": "f87d2687-bc99-4378-9dcf-462af881a51b",
+      "description": "Large 4-door wardrobes",
+      "imageUrl": "/images/wardrobe.webp",
+      "createdAt": "2025-09-09T09:14:47.833Z"
+    },
+    {
+      "id": "c71cc48c-590c-4d0d-8ea5-4c973117935e",
+      "name": "Walk-in Closets",
+      "categoryId": "f87d2687-bc99-4378-9dcf-462af881a51b",
+      "description": "Luxury walk-in wardrobes",
+      "imageUrl": "/images/wardrobe.webp",
+      "createdAt": "2025-09-09T09:14:47.833Z"
+    },
+    {
+      "id": "0cbde92d-2694-4c2f-a7aa-da7de41997d4",
+      "name": "Kids Wardrobes",
+      "categoryId": "f87d2687-bc99-4378-9dcf-462af881a51b",
+      "description": "Child-friendly designs",
+      "imageUrl": "/images/wardrobe.webp",
+      "createdAt": "2025-09-09T09:14:47.833Z"
+    },
+    {
+      "id": "3e5768f7-744e-417a-8f8d-b9d32defaa5b",
+      "name": "Single Beds",
+      "categoryId": "f44afe1f-1018-4c6c-9fd2-05959bbe41ab",
+      "description": "Compact single beds",
+      "imageUrl": "/images/bed.jpg",
+      "createdAt": "2025-09-09T09:14:47.833Z"
+    },
+    {
+      "id": "862ba24a-bcae-46ef-bb91-e9ca5661f773",
+      "name": "Double Beds",
+      "categoryId": "f44afe1f-1018-4c6c-9fd2-05959bbe41ab",
+      "description": "Comfortable double beds",
+      "imageUrl": "/images/bed.jpg",
+      "createdAt": "2025-09-09T09:14:47.833Z"
+    },
+    {
+      "id": "782e0637-2bde-4afb-aba3-edd7a5496359",
+      "name": "Queen Size",
+      "categoryId": "f44afe1f-1018-4c6c-9fd2-05959bbe41ab",
+      "description": "Spacious queen beds",
+      "imageUrl": "/images/bed.jpg",
+      "createdAt": "2025-09-09T09:14:47.833Z"
+    },
+    {
+      "id": "9bf221d4-9db1-4f76-98ee-cb7c460510f0",
+      "name": "King Size",
+      "categoryId": "f44afe1f-1018-4c6c-9fd2-05959bbe41ab",
+      "description": "Luxurious king beds",
+      "imageUrl": "/images/bed.jpg",
+      "createdAt": "2025-09-09T09:14:47.833Z"
+    },
+    {
+      "id": "425954dd-4adb-417e-aceb-4b4051103d36",
+      "name": "Storage Beds",
+      "categoryId": "f44afe1f-1018-4c6c-9fd2-05959bbe41ab",
+      "description": "Beds with storage",
+      "imageUrl": "/images/bed.jpg",
+      "createdAt": "2025-09-09T09:14:47.833Z"
+    },
+    {
+      "id": "e4a9a884-d824-498f-aa3c-ffd35ca8fa34",
+      "name": "2-Seater Sofas",
+      "categoryId": "4f51b3f6-d533-46bb-be7f-6158ee2e7203",
+      "description": "Compact 2-seater sofas",
+      "imageUrl": "/images/sofa.jpg",
+      "createdAt": "2025-09-09T09:14:47.833Z"
+    },
+    {
+      "id": "c6eea840-1db8-4759-b84f-4de4cec65774",
+      "name": "3-Seater Sofas",
+      "categoryId": "4f51b3f6-d533-46bb-be7f-6158ee2e7203",
+      "description": "Standard 3-seater sofas",
+      "imageUrl": "/images/sofa.jpg",
+      "createdAt": "2025-09-09T09:14:47.833Z"
+    },
+    {
+      "id": "94e2d640-3f92-4dd7-aa61-ab0d4e75492e",
+      "name": "L-Shaped Sofas",
+      "categoryId": "4f51b3f6-d533-46bb-be7f-6158ee2e7203",
+      "description": "Corner L-shaped sofas",
+      "imageUrl": "/images/sofa.jpg",
+      "createdAt": "2025-09-09T09:14:47.833Z"
+    },
+    {
+      "id": "735ea94c-6184-4ae0-bb66-6d29c3636f29",
+      "name": "Sectional Sofas",
+      "categoryId": "4f51b3f6-d533-46bb-be7f-6158ee2e7203",
+      "description": "Modular sectional sofas",
+      "imageUrl": "/images/living-room-set.jpg",
+      "createdAt": "2025-09-09T09:14:47.833Z"
+    },
+    {
+      "id": "c0c3950d-26f8-420a-a698-008a5a2339a8",
+      "name": "Recliners",
+      "categoryId": "4f51b3f6-d533-46bb-be7f-6158ee2e7203",
+      "description": "Comfortable recliner chairs",
+      "imageUrl": "/images/jhula.jpg",
+      "createdAt": "2025-09-09T09:14:47.833Z"
+    },
+    {
+      "id": "5a0eec33-a517-4676-bd43-201fb8ea2ac4",
+      "name": "TV Units",
+      "categoryId": "24b2ab4d-890c-4634-b1a5-203c373c6a78",
+      "description": "Entertainment TV units",
+      "imageUrl": "/images/wardrobe.webp",
+      "createdAt": "2025-09-09T09:14:47.833Z"
+    },
+    {
+      "id": "22cda264-dae2-414a-b0f9-8f460c8cdb3a",
+      "name": "Pooja Ghar",
+      "categoryId": "24b2ab4d-890c-4634-b1a5-203c373c6a78",
+      "description": "Traditional prayer units",
+      "imageUrl": "/images/pooja-ghar.jpg",
+      "createdAt": "2025-09-09T09:14:47.833Z"
+    },
+    {
+      "id": "e94460e0-2d5c-4062-b079-b872b31ea03f",
+      "name": "Storage Cabinets",
+      "categoryId": "24b2ab4d-890c-4634-b1a5-203c373c6a78",
+      "description": "General storage cabinets",
+      "imageUrl": "/images/wardrobe.webp",
+      "createdAt": "2025-09-09T09:14:47.833Z"
+    },
+    {
+      "id": "584c8741-9ec3-4867-b8f5-e6a0567311c7",
+      "name": "Display Units",
+      "categoryId": "24b2ab4d-890c-4634-b1a5-203c373c6a78",
+      "description": "Decorative display cabinets",
+      "imageUrl": "/images/wardrobe.webp",
+      "createdAt": "2025-09-09T09:14:47.833Z"
+    },
+    {
+      "id": "1cc83f19-74b2-4c55-a002-6b8f4071d60e",
+      "name": "Kitchen Cabinets",
+      "categoryId": "24b2ab4d-890c-4634-b1a5-203c373c6a78",
+      "description": "Kitchen storage solutions",
+      "imageUrl": "/images/wardrobe.webp",
+      "createdAt": "2025-09-09T09:14:47.833Z"
+    }
+  ],
+  "products": [
+    {
+      "id": "0a28e281-c3c2-4866-8ee7-ce71d396fc18",
+      "name": "Royal Maharaja Dining Table",
+      "description": "Exquisite 8-seater solid teak dining table with hand-carved traditional motifs and brass inlays",
+      "price": "75000.00",
+      "originalPrice": "95000.00",
+      "categoryId": "2e28cd03-79c6-48f4-9d0b-2e54df7be807",
+      "subcategoryId": "215428a9-ede4-4106-96b2-b7b31ed3ddbb",
+      "imageUrl": "/images/dining-table.webp",
+      "images": [],
+      "inStock": true,
+      "stock": 3,
+      "featured": true,
+      "isDeal": false,
+      "dealPrice": null,
+      "dealExpiry": null,
+      "createdAt": "2025-09-09T09:14:47.901Z",
+      "updatedAt": "2025-09-09T09:14:47.901Z"
+    },
+    {
+      "id": "28118e46-c637-44bb-bdac-bfe3ab846906",
+      "name": "Premium Teak Chair Set",
+      "description": "Elegant set of 6 solid teak dining chairs with traditional design and comfortable cushioning",
+      "price": "48000.00",
+      "originalPrice": "62000.00",
+      "categoryId": "12ddde7c-df69-4520-a271-33ff87271f61",
+      "subcategoryId": "5f189a96-16a6-4886-9291-94d08eab5402",
+      "imageUrl": "/images/chair-set.jpg",
+      "images": [],
+      "inStock": true,
+      "stock": 8,
+      "featured": true,
+      "isDeal": false,
+      "dealPrice": null,
+      "dealExpiry": null,
+      "createdAt": "2025-09-09T09:14:47.901Z",
+      "updatedAt": "2025-09-09T09:14:47.901Z"
+    },
+    {
+      "id": "e1bd8d6c-4344-46e5-908e-2f0a78583d91",
+      "name": "Emperor Teak Wardrobe",
+      "description": "Magnificent 4-door solid teak wardrobe with mirror, drawers and premium brass fittings",
+      "price": "85000.00",
+      "originalPrice": "110000.00",
+      "categoryId": "f87d2687-bc99-4378-9dcf-462af881a51b",
+      "subcategoryId": "009d8196-db3b-438d-a55a-946c5e353fac",
+      "imageUrl": "/images/wardrobe.webp",
+      "images": [],
+      "inStock": true,
+      "stock": 2,
+      "featured": true,
+      "isDeal": false,
+      "dealPrice": null,
+      "dealExpiry": null,
+      "createdAt": "2025-09-09T09:14:47.901Z",
+      "updatedAt": "2025-09-09T09:14:47.901Z"
+    },
+    {
+      "id": "3f5edf87-e1a3-49a9-a9f2-183bc90b940d",
+      "name": "Royal King Size Teak Bed",
+      "description": "Luxurious king size solid teak bed with storage compartments and intricate headboard design",
+      "price": "95000.00",
+      "originalPrice": "125000.00",
+      "categoryId": "f44afe1f-1018-4c6c-9fd2-05959bbe41ab",
+      "subcategoryId": "9bf221d4-9db1-4f76-98ee-cb7c460510f0",
+      "imageUrl": "/images/bed.jpg",
+      "images": [],
+      "inStock": true,
+      "stock": 2,
+      "featured": true,
+      "isDeal": false,
+      "dealPrice": null,
+      "dealExpiry": null,
+      "createdAt": "2025-09-09T09:14:47.901Z",
+      "updatedAt": "2025-09-09T09:14:47.901Z"
+    },
+    {
+      "id": "239c5e5e-994d-48c3-b238-ad00b65bd127",
+      "name": "Imperial Teak Sofa",
+      "description": "Elegant solid teak sofa with premium fabric upholstery and traditional design",
+      "price": "85000.00",
+      "originalPrice": "105000.00",
+      "categoryId": "4f51b3f6-d533-46bb-be7f-6158ee2e7203",
+      "subcategoryId": "c6eea840-1db8-4759-b84f-4de4cec65774",
+      "imageUrl": "/images/sofa.jpg",
+      "images": [],
+      "inStock": true,
+      "stock": 3,
+      "featured": true,
+      "isDeal": false,
+      "dealPrice": null,
+      "dealExpiry": null,
+      "createdAt": "2025-09-09T09:14:47.901Z",
+      "updatedAt": "2025-09-09T09:14:47.901Z"
+    },
+    {
+      "id": "43fd2413-6d62-47f7-abb6-909d07752c01",
+      "name": "Heritage Teak Pooja Ghar",
+      "description": "Traditional solid teak pooja mandir with intricate carvings and storage compartments",
+      "price": "58000.00",
+      "originalPrice": "72000.00",
+      "categoryId": "24b2ab4d-890c-4634-b1a5-203c373c6a78",
+      "subcategoryId": "22cda264-dae2-414a-b0f9-8f460c8cdb3a",
+      "imageUrl": "/images/pooja-ghar.jpg",
+      "images": [],
+      "inStock": true,
+      "stock": 5,
+      "featured": true,
+      "isDeal": false,
+      "dealPrice": null,
+      "dealExpiry": null,
+      "createdAt": "2025-09-09T09:14:47.901Z",
+      "updatedAt": "2025-09-09T09:14:47.901Z"
+    },
+    {
+      "id": "239ee9ac-b237-4e8b-9d42-1d38a02ec2b1",
+      "name": "Modern Teak Chairs - Flash Deal",
+      "description": "Set of 2 modern solid teak chairs with ergonomic design - Limited time ₹1 deal!",
+      "price": "25000.00",
+      "originalPrice": "32000.00",
+      "categoryId": "12ddde7c-df69-4520-a271-33ff87271f61",
+      "subcategoryId": "6768b387-f08d-4b69-9749-b05b8016dfe5",
+      "imageUrl": "/images/modern-chairs.webp",
+      "images": [],
+      "inStock": true,
+      "stock": 15,
+      "featured": false,
+      "isDeal": true,
+      "dealPrice": "1.00",
+      "dealExpiry": "2025-09-10T09:14:47.865Z",
+      "createdAt": "2025-09-09T09:14:47.901Z",
+      "updatedAt": "2025-09-09T09:14:47.901Z"
+    },
+    {
+      "id": "cbbb9a9c-512f-490c-8c18-560f53f1d938",
+      "name": "Teak Temple - ₹1 Deal",
+      "description": "Beautiful solid teak temple for home worship - Incredible ₹1 flash sale!",
+      "price": "35000.00",
+      "originalPrice": "45000.00",
+      "categoryId": "24b2ab4d-890c-4634-b1a5-203c373c6a78",
+      "subcategoryId": "22cda264-dae2-414a-b0f9-8f460c8cdb3a",
+      "imageUrl": "/images/temple-pooja.jpg",
+      "images": [],
+      "inStock": true,
+      "stock": 8,
+      "featured": false,
+      "isDeal": true,
+      "dealPrice": "1.00",
+      "dealExpiry": "2025-09-10T09:14:47.865Z",
+      "createdAt": "2025-09-09T09:14:47.901Z",
+      "updatedAt": "2025-09-09T09:14:47.901Z"
+    },
+    {
+      "id": "68fede8c-fcec-4389-ae89-fa5d2dcc123c",
+      "name": "Traditional Jhula - Flash Sale",
+      "description": "Handcrafted solid teak jhula swing for garden or porch - Unbelievable ₹1 deal!",
+      "price": "45000.00",
+      "originalPrice": "58000.00",
+      "categoryId": "4f51b3f6-d533-46bb-be7f-6158ee2e7203",
+      "subcategoryId": "c0c3950d-26f8-420a-a698-008a5a2339a8",
+      "imageUrl": "/images/jhula.jpg",
+      "images": [],
+      "inStock": true,
+      "stock": 12,
+      "featured": false,
+      "isDeal": true,
+      "dealPrice": "1.00",
+      "dealExpiry": "2025-09-10T09:14:47.865Z",
+      "createdAt": "2025-09-09T09:14:47.901Z",
+      "updatedAt": "2025-09-09T09:14:47.901Z"
+    },
+    {
+      "id": "2b38a46e-0d45-4e8b-8552-a71a15be4004",
+      "name": "Complete Living Room Set",
+      "description": "Comprehensive solid teak living room furniture set including sofa, center table, and side tables",
+      "price": "185000.00",
+      "originalPrice": "225000.00",
+      "categoryId": "4f51b3f6-d533-46bb-be7f-6158ee2e7203",
+      "subcategoryId": "735ea94c-6184-4ae0-bb66-6d29c3636f29",
+      "imageUrl": "/images/living-room-set.jpg",
+      "images": [],
+      "inStock": true,
+      "stock": 2,
+      "featured": false,
+      "isDeal": false,
+      "dealPrice": null,
+      "dealExpiry": null,
+      "createdAt": "2025-09-09T09:14:47.901Z",
+      "updatedAt": "2025-09-09T09:14:47.901Z"
+    },
+    {
+      "id": "b1167401-344e-4996-b128-6f8518c8d8a2",
+      "name": "Classic Teak Dining Table",
+      "description": "Spacious 6-seater solid teak dining table perfect for family meals and gatherings",
+      "price": "55000.00",
+      "originalPrice": "68000.00",
+      "categoryId": "2e28cd03-79c6-48f4-9d0b-2e54df7be807",
+      "subcategoryId": "55d0964a-d461-4572-891d-90f1dd6d0d6b",
+      "imageUrl": "/images/dining-table.webp",
+      "images": [],
+      "inStock": true,
+      "stock": 6,
+      "featured": false,
+      "isDeal": false,
+      "dealPrice": null,
+      "dealExpiry": null,
+      "createdAt": "2025-09-09T09:14:47.901Z",
+      "updatedAt": "2025-09-09T09:14:47.901Z"
+    },
+    {
+      "id": "43af7a21-af5c-4351-acde-bcbde3f3ac9b",
+      "name": "Ergonomic Chair Set of 4",
+      "description": "Set of 4 comfortable solid teak chairs with ergonomic design for dining or office use",
+      "price": "32000.00",
+      "originalPrice": "40000.00",
+      "categoryId": "12ddde7c-df69-4520-a271-33ff87271f61",
+      "subcategoryId": "5f189a96-16a6-4886-9291-94d08eab5402",
+      "imageUrl": "/images/chair-set.jpg",
+      "images": [],
+      "inStock": true,
+      "stock": 10,
+      "featured": false,
+      "isDeal": false,
+      "dealPrice": null,
+      "dealExpiry": null,
+      "createdAt": "2025-09-09T09:14:47.901Z",
+      "updatedAt": "2025-09-09T09:14:47.901Z"
+    },
+    {
+      "id": "05f31843-547c-4c03-aa78-65b1ac4f974d",
+      "name": "Spacious Teak Wardrobe",
+      "description": "Large solid teak wardrobe with multiple compartments, hanging space, and mirror",
+      "price": "72000.00",
+      "originalPrice": "88000.00",
+      "categoryId": "f87d2687-bc99-4378-9dcf-462af881a51b",
+      "subcategoryId": "029d3af2-fcde-475d-8588-199d70ce2f8d",
+      "imageUrl": "/images/wardrobe.webp",
+      "images": [],
+      "inStock": true,
+      "stock": 4,
+      "featured": false,
+      "isDeal": false,
+      "dealPrice": null,
+      "dealExpiry": null,
+      "createdAt": "2025-09-09T09:14:47.901Z",
+      "updatedAt": "2025-09-09T09:14:47.901Z"
+    },
+    {
+      "id": "0fe228de-9baa-4570-816b-0347ef6ad84f",
+      "name": "Queen Size Teak Bed",
+      "description": "Elegant queen size solid teak bed with modern design and storage options",
+      "price": "68000.00",
+      "originalPrice": "82000.00",
+      "categoryId": "f44afe1f-1018-4c6c-9fd2-05959bbe41ab",
+      "subcategoryId": "782e0637-2bde-4afb-aba3-edd7a5496359",
+      "imageUrl": "/images/bed.jpg",
+      "images": [],
+      "inStock": true,
+      "stock": 5,
+      "featured": false,
+      "isDeal": false,
+      "dealPrice": null,
+      "dealExpiry": null,
+      "createdAt": "2025-09-09T09:14:47.901Z",
+      "updatedAt": "2025-09-09T09:14:47.901Z"
+    },
+    {
+      "id": "94c25d13-90df-4337-a110-d001ed38a583",
+      "name": "Comfortable Teak Sofa",
+      "description": "Premium 3-seater solid teak sofa with high-quality fabric upholstery",
+      "price": "65000.00",
+      "originalPrice": "78000.00",
+      "categoryId": "4f51b3f6-d533-46bb-be7f-6158ee2e7203",
+      "subcategoryId": "c6eea840-1db8-4759-b84f-4de4cec65774",
+      "imageUrl": "/images/sofa.jpg",
+      "images": [],
+      "inStock": true,
+      "stock": 7,
+      "featured": false,
+      "isDeal": false,
+      "dealPrice": null,
+      "dealExpiry": null,
+      "createdAt": "2025-09-09T09:14:47.901Z",
+      "updatedAt": "2025-09-09T09:14:47.901Z"
+    },
+    {
+      "id": "2654cfe2-60ba-4181-a4e5-0412e201733e",
+      "name": "Traditional Pooja Cabinet",
+      "description": "Compact solid teak pooja cabinet with traditional carvings and storage",
+      "price": "38000.00",
+      "originalPrice": "48000.00",
+      "categoryId": "24b2ab4d-890c-4634-b1a5-203c373c6a78",
+      "subcategoryId": "22cda264-dae2-414a-b0f9-8f460c8cdb3a",
+      "imageUrl": "/images/pooja-ghar.jpg",
+      "images": [],
+      "inStock": true,
+      "stock": 12,
+      "featured": false,
+      "isDeal": false,
+      "dealPrice": null,
+      "dealExpiry": null,
+      "createdAt": "2025-09-09T09:14:47.901Z",
+      "updatedAt": "2025-09-09T09:14:47.901Z"
+    },
+    {
+      "id": "222cd45c-08ab-4d1e-80ae-31702e09903a",
+      "name": "Modern Designer Chairs",
+      "description": "Contemporary solid teak chairs with sleek design perfect for modern homes",
+      "price": "28000.00",
+      "originalPrice": "35000.00",
+      "categoryId": "12ddde7c-df69-4520-a271-33ff87271f61",
+      "subcategoryId": "6768b387-f08d-4b69-9749-b05b8016dfe5",
+      "imageUrl": "/images/modern-chairs.webp",
+      "images": [],
+      "inStock": true,
+      "stock": 15,
+      "featured": false,
+      "isDeal": false,
+      "dealPrice": null,
+      "dealExpiry": null,
+      "createdAt": "2025-09-09T09:14:47.901Z",
+      "updatedAt": "2025-09-09T09:14:47.901Z"
+    },
+    {
+      "id": "e0e7820d-b8a0-42e8-9e52-e57c40a26503",
+      "name": "Garden Teak Jhula",
+      "description": "Beautiful handcrafted solid teak swing perfect for garden or balcony relaxation",
+      "price": "42000.00",
+      "originalPrice": "52000.00",
+      "categoryId": "4f51b3f6-d533-46bb-be7f-6158ee2e7203",
+      "subcategoryId": "c0c3950d-26f8-420a-a698-008a5a2339a8",
+      "imageUrl": "/images/jhula.jpg",
+      "images": [],
+      "inStock": true,
+      "stock": 8,
+      "featured": false,
+      "isDeal": false,
+      "dealPrice": null,
+      "dealExpiry": null,
+      "createdAt": "2025-09-09T09:14:47.901Z",
+      "updatedAt": "2025-09-09T09:14:47.901Z"
+    },
+    {
+      "id": "27591a88-4c87-41d8-87a9-84c9e77e08d2",
+      "name": "Sacred Temple Unit",
+      "description": "Elegant solid teak temple with intricate religious carvings and multiple shelves",
+      "price": "48000.00",
+      "originalPrice": "58000.00",
+      "categoryId": "24b2ab4d-890c-4634-b1a5-203c373c6a78",
+      "subcategoryId": "22cda264-dae2-414a-b0f9-8f460c8cdb3a",
+      "imageUrl": "/images/temple-pooja.jpg",
+      "images": [],
+      "inStock": true,
+      "stock": 6,
+      "featured": false,
+      "isDeal": false,
+      "dealPrice": null,
+      "dealExpiry": null,
+      "createdAt": "2025-09-09T09:14:47.901Z",
+      "updatedAt": "2025-09-09T09:14:47.901Z"
+    }
+  ],
+  "company_info": {
+    "name": "IndoSaga Furniture Pvt. Ltd.",
+    "tagline": "Premium Teak Furniture Collection",
+    "description": "IndoSaga is a premium teak wood furniture store specializing in handcrafted, authentic furniture pieces made from the finest quality teak wood. Our collection includes dining tables, chairs, wardrobes, beds, sofas, and traditional items like pooja ghars.",
+    "address": "123 Furniture Street, Balewadi, Pune - 411045, Maharashtra",
+    "phone": "+91 88650 09032",
+    "email": "info@indosaga.com",
+    "website": "www.indosaga.com",
+    "gstin": "27AAAAA0000A1Z5",
+    "logo": "/indosaga-logo.png",
+    "social_media": {
+      "facebook": "https://facebook.com/indosagafurniture",
+      "instagram": "@indosagafurniture",
+      "whatsapp": "+91 88650 09032"
+    },
+    "business_hours": {
+      "monday_friday": "9:00 AM - 8:00 PM",
+      "saturday": "9:00 AM - 9:00 PM",
+      "sunday": "10:00 AM - 7:00 PM"
+    },
+    "features": [
+      "100% Authentic Teak Wood",
+      "Handcrafted by Expert Artisans",
+      "Free Home Delivery & Assembly",
+      "10 Year Structural Warranty",
+      "Customization Available",
+      "EMI Options Available"
+    ]
+  },
+  "flash_deals": {
+    "active": true,
+    "title": "₹1 Flash Sale",
+    "description": "Incredible deals on premium teak furniture for limited time only!",
+    "end_date": "2025-09-10T09:14:47.865Z",
+    "products": [
+      "239ee9ac-b237-4e8b-9d42-1d38a02ec2b1",
+      "cbbb9a9c-512f-490c-8c18-560f53f1d938",
+      "68fede8c-fcec-4389-ae89-fa5d2dcc123c"
+    ]
+  },
+  "featured_products": [
+    "0a28e281-c3c2-4866-8ee7-ce71d396fc18",
+    "28118e46-c637-44bb-bdac-bfe3ab846906",
+    "e1bd8d6c-4344-46e5-908e-2f0a78583d91",
+    "3f5edf87-e1a3-49a9-a9f2-183bc90b940d",
+    "239c5e5e-994d-48c3-b238-ad00b65bd127",
+    "43fd2413-6d62-47f7-abb6-909d07752c01"
+  ],
+  "services": {
+    "delivery": {
+      "free_delivery": true,
+      "delivery_time": "7-14 business days",
+      "delivery_areas": "Pan India"
+    },
+    "assembly": {
+      "free_assembly": true,
+      "professional_installation": true
+    },
+    "warranty": {
+      "structural": "10 years",
+      "finish": "2 years",
+      "hardware": "5 years"
+    },
+    "support": {
+      "customer_service": "24/7 available",
+      "phone": "+91 88650 09032",
+      "email": "support@indosaga.com"
+    }
+  },
+  "payment_methods": [
+    {
+      "method": "upi",
+      "name": "UPI",
+      "description": "Pay using UPI apps like PhonePe, Google Pay, Paytm"
+    },
+    {
+      "method": "card",
+      "name": "Credit/Debit Card",
+      "description": "Secure card payments with international cards supported"
+    },
+    {
+      "method": "netbanking",
+      "name": "Net Banking",
+      "description": "Direct bank transfer from your account"
+    },
+    {
+      "method": "wallet",
+      "name": "Digital Wallets",
+      "description": "Pay using digital wallets like Paytm, Amazon Pay"
+    },
+    {
+      "method": "cod",
+      "name": "Cash on Delivery",
+      "description": "Pay when furniture is delivered (₹99 convenience fee applies)"
+    }
+  ]
+}

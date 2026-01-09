@@ -1,0 +1,53 @@
+[2025-09-11 08:25:32] Error processing cancellation: Invalid JSON input: Syntax error
+[2025-09-11 08:25:42] Error processing cancellation: Invalid JSON input: Syntax error
+[2025-09-11 08:27:18] Raw input received: 
+[2025-09-11 08:27:18] JSON decode error: Syntax error | Raw input: 
+[2025-09-11 08:27:18] Error processing cancellation: Invalid JSON input: Syntax error
+[2025-09-11 08:30:21] Raw input received: 
+[2025-09-11 08:30:21] JSON decode error: Syntax error | Raw input: 
+[2025-09-11 08:30:21] Error processing cancellation: Invalid JSON input: Syntax error
+[2025-09-12 06:04:21] Raw input received: 
+[2025-09-12 06:04:21] JSON decode error: Syntax error | Raw input: 
+[2025-09-12 06:04:21] Error processing cancellation: Invalid JSON input: Syntax error
+[2025-09-12 06:11:19] Raw input received: 
+[2025-09-12 06:11:19] JSON decode error: Syntax error | Raw input: 
+[2025-09-12 06:11:19] Error processing cancellation: Invalid JSON input: Syntax error
+[2025-09-12 06:11:59] Raw input received: 
+[2025-09-12 06:11:59] JSON decode error: Syntax error | Raw input: 
+[2025-09-12 06:11:59] Error processing cancellation: Invalid JSON input: Syntax error
+[2025-09-12 06:16:43] Raw input received (length: 235): {"orderId":"393af4da-f6f1-410d-9c25-a453750aea78","customerName":"prajwal kadam","customerEmail":"kadamprajwal358@gmail.com","reason":"Financial reasons","details":"","orderTotal":"100.00","cancellationDate":"2025-09-12T06:16:43.846Z"}
+[2025-09-12 06:16:43] Parsed JSON data: {"orderId":"393af4da-f6f1-410d-9c25-a453750aea78","customerName":"prajwal kadam","customerEmail":"kadamprajwal358@gmail.com","reason":"Financial reasons","details":"","orderTotal":"100.00","cancellationDate":"2025-09-12T06:16:43.846Z"}
+[2025-09-12 06:16:43] Processing cancellation for Order 393af4da-f6f1-410d-9c25-a453750aea78 - Customer: prajwal kadam - Reason: Financial reasons
+[2025-09-12 06:16:44] Customer cancellation email sent successfully to kadamprajwal358@gmail.com
+[2025-09-12 06:16:45] Admin cancellation notification sent successfully to kadamprajwal358@gmail.com
+[2025-09-12 06:16:45] Cancellation processing completed for Order 393af4da-f6f1-410d-9c25-a453750aea78 - Customer emails: SUCCESS - Admin emails: SUCCESS
+[2025-09-12 06:25:22] Raw input received (length: 225): {"orderId":"df7aef52-7567-4b96-8df7-13e61720096d","customerName":"Arun kadam","customerEmail":"kdmarun12@gmail.com","reason":"Quality concerns","details":"","orderTotal":"100.00","cancellationDate":"2025-09-12T06:25:22.408Z"}
+[2025-09-12 06:25:22] Parsed JSON data: {"orderId":"df7aef52-7567-4b96-8df7-13e61720096d","customerName":"Arun kadam","customerEmail":"kdmarun12@gmail.com","reason":"Quality concerns","details":"","orderTotal":"100.00","cancellationDate":"2025-09-12T06:25:22.408Z"}
+[2025-09-12 06:25:22] Processing cancellation for Order df7aef52-7567-4b96-8df7-13e61720096d - Customer: Arun kadam - Reason: Quality concerns
+[2025-09-12 06:25:23] Customer cancellation email sent successfully to kdmarun12@gmail.com
+[2025-09-12 06:25:23] Admin cancellation notification sent successfully to kadamprajwal358@gmail.com
+[2025-09-12 06:25:23] Cancellation processing completed for Order df7aef52-7567-4b96-8df7-13e61720096d - Customer emails: SUCCESS - Admin emails: SUCCESS
+[2025-09-16 06:26:30] Raw input received (length: 230): {"orderId":"f32a5964-e387-414a-b6fc-31d01c1cbca8","customerName":"Arun kadam","customerEmail":"kdmarun12@gmail.com","reason":"Product not needed anymore","details":"","orderTotal":"1","cancellationDate":"2025-09-16T06:26:30.368Z"}
+[2025-09-16 06:26:30] Parsed JSON data: {"orderId":"f32a5964-e387-414a-b6fc-31d01c1cbca8","customerName":"Arun kadam","customerEmail":"kdmarun12@gmail.com","reason":"Product not needed anymore","details":"","orderTotal":"1","cancellationDate":"2025-09-16T06:26:30.368Z"}
+[2025-09-16 06:26:30] Processing cancellation for Order f32a5964-e387-414a-b6fc-31d01c1cbca8 - Customer: Arun kadam - Reason: Product not needed anymore
+[2025-09-16 06:26:31] Customer cancellation email sent successfully to kdmarun12@gmail.com
+[2025-09-16 06:26:31] Admin cancellation notification sent successfully to kadamprajwal358@gmail.com
+[2025-09-16 06:26:31] Cancellation processing completed for Order f32a5964-e387-414a-b6fc-31d01c1cbca8 - Customer emails: SUCCESS - Admin emails: SUCCESS
+[2025-09-16 11:06:32] Raw input received (length: 220): {"orderId":"fe8c8df0-3ef9-499a-ba1e-71d8647f7067","customerName":"Prajwal Kadam","customerEmail":"kadamprajwal358@gmail.com","reason":"Other","details":"","orderTotal":"100","cancellationDate":"2025-09-16T09:06:31.982Z"}
+[2025-09-16 11:06:32] Parsed JSON data: {"orderId":"fe8c8df0-3ef9-499a-ba1e-71d8647f7067","customerName":"Prajwal Kadam","customerEmail":"kadamprajwal358@gmail.com","reason":"Other","details":"","orderTotal":"100","cancellationDate":"2025-09-16T09:06:31.982Z"}
+[2025-09-16 11:06:32] Processing cancellation for Order fe8c8df0-3ef9-499a-ba1e-71d8647f7067 - Customer: Prajwal Kadam - Reason: Other
+[2025-09-16 11:06:37] Customer cancellation email sent successfully to kadamprajwal358@gmail.com
+[2025-09-16 11:06:43] Admin cancellation notification sent successfully to kadamprajwal358@gmail.com
+[2025-09-16 11:06:43] Cancellation processing completed for Order fe8c8df0-3ef9-499a-ba1e-71d8647f7067 - Customer emails: SUCCESS - Admin emails: SUCCESS
+[2025-09-16 11:26:43] Raw input received (length: 236): {"orderId":"e729e55a-cdf3-442e-b748-979f88192083","customerName":"Nikita Nagargoje","customerEmail":"nikitanagargoje4@gmail.com","reason":"Financial reasons","details":"","orderTotal":"100","cancellationDate":"2025-09-16T09:26:43.323Z"}
+[2025-09-16 11:26:43] Parsed JSON data: {"orderId":"e729e55a-cdf3-442e-b748-979f88192083","customerName":"Nikita Nagargoje","customerEmail":"nikitanagargoje4@gmail.com","reason":"Financial reasons","details":"","orderTotal":"100","cancellationDate":"2025-09-16T09:26:43.323Z"}
+[2025-09-16 11:26:43] Processing cancellation for Order e729e55a-cdf3-442e-b748-979f88192083 - Customer: Nikita Nagargoje - Reason: Financial reasons
+[2025-09-16 11:26:50] Customer cancellation email sent successfully to nikitanagargoje4@gmail.com
+[2025-09-16 11:26:55] Admin cancellation notification sent successfully to kadamprajwal358@gmail.com
+[2025-09-16 11:26:55] Cancellation processing completed for Order e729e55a-cdf3-442e-b748-979f88192083 - Customer emails: SUCCESS - Admin emails: SUCCESS
+[2025-09-20 05:43:02] Raw input received (length: 220): {"orderId":"cHTgulv83bOgsPguJ6AZA","customerName":"Prajwal Kadam","customerEmail":"prajwalkadam1209@gmail.com","reason":"Ordered by mistake","details":"","orderTotal":"1.00","cancellationDate":"2025-09-20T05:43:02.325Z"}
+[2025-09-20 05:43:02] Parsed JSON data: {"orderId":"cHTgulv83bOgsPguJ6AZA","customerName":"Prajwal Kadam","customerEmail":"prajwalkadam1209@gmail.com","reason":"Ordered by mistake","details":"","orderTotal":"1.00","cancellationDate":"2025-09-20T05:43:02.325Z"}
+[2025-09-20 05:43:02] Processing cancellation for Order cHTgulv83bOgsPguJ6AZA - Customer: Prajwal Kadam - Reason: Ordered by mistake
+[2025-09-20 05:43:03] Customer cancellation email sent successfully to prajwalkadam1209@gmail.com
+[2025-09-20 05:43:03] Admin cancellation notification sent successfully to kadamprajwal358@gmail.com
+[2025-09-20 05:43:03] Cancellation processing completed for Order cHTgulv83bOgsPguJ6AZA - Customer emails: SUCCESS - Admin emails: SUCCESS

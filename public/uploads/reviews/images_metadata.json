@@ -1,0 +1,25 @@
+[
+  {
+    "productId": "08200d6e-c5e7-431d-8f5d-403edf938e65",
+    "uploadedAt": "2025-09-18T10:37:47.603Z",
+    "images": [
+      "/uploads/reviews/review_1758191867596_ytkxbntyu9.png",
+      "/uploads/reviews/review_1758191867601_6def8w133po.png",
+      "/uploads/reviews/review_1758191867602_j1ybjtpegw.png"
+    ]
+  },
+  {
+    "productId": "7b6523d2-c621-437c-880b-d25869ea9643",
+    "uploadedAt": "2025-09-20T05:32:35.097Z",
+    "images": [
+      "/uploads/reviews/review_1758346355095_mve2z20ver.png"
+    ]
+  },
+  {
+    "productId": "08200d6e-c5e7-431d-8f5d-403edf938e65",
+    "uploadedAt": "2025-09-20T05:49:32.062Z",
+    "images": [
+      "/uploads/reviews/review_1758347372059_9knwngwaim.png"
+    ]
+  }
+]

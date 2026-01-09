@@ -1,0 +1,35 @@
+SetEnv FRONTEND_URL "https://your-netlify-site.netlify.app"
+<IfModule mod_headers.c>
+  Header set Access-Control-Allow-Origin "https://your-netlify-site.netlify.app"
+  Header set Access-Control-Allow-Methods "GET,POST,OPTIONS,PUT,DELETE"
+  Header set Access-Control-Allow-Headers "Content-Type, Authorization, X-Requested-With"
+  Header set Access-Control-Allow-Credentials "true"
+</IfModule>
+# API Directory Configuration - SECURE VERSION
+RewriteEngine On
+
+# All requests go through index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [QSA,L]
+
+# CORS Configuration - SECURE FOR PRODUCTION
+# Allow credentials and specify exact origin
+Header always set Access-Control-Allow-Credentials "true"
+
+# Set specific origin based on environment
+# In production, replace with your actual domain
+SetEnvIf Host "(.+)" ORIGIN_DOMAIN=https://$1
+Header always set Access-Control-Allow-Origin "%{ORIGIN_DOMAIN}e"
+
+Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+Header always set Access-Control-Allow-Headers "Content-Type, Authorization, X-CSRF-Token"
+
+# Handle preflight requests
+RewriteCond %{REQUEST_METHOD} OPTIONS
+RewriteRule ^(.*)$ - [R=200,L]
+
+# Security headers
+Header always set X-Content-Type-Options nosniff
+Header always set X-Frame-Options DENY
+Header always set X-XSS-Protection "1; mode=block"

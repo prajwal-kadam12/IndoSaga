@@ -1,0 +1,200 @@
+[2025-09-10 08:40:14] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🎉 Order Confirmed - #TEST-20250910084014 - IndoSaga Furniture
+[2025-09-10 08:40:15] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🛒 New Order Received - Order #TEST-20250910084014 - ₹15000
+[2025-09-10 08:40:52] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🎉 Order Confirmed - #TEST-20250910084051 - IndoSaga Furniture
+[2025-09-10 08:40:53] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🛒 New Order Received - Order #TEST-20250910084051 - ₹15000
+[2025-09-10 08:43:43] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🎉 Order Confirmed - #WORKING-TEST-20250910084342 - IndoSaga Furniture
+[2025-09-10 08:43:44] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🛒 New Order Received - Order #WORKING-TEST-20250910084342 - ₹20000
+[2025-09-10 09:02:20] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: ✅ Thank you for contacting IndoSaga Furniture
+[2025-09-10 09:02:21] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 📧 New Contact Enquiry - John Doe - Test Subject
+[2025-09-10 09:02:21] [INFO] Dual emails sent - User: kadamprajwal358@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-10 09:02:23] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: ✅ Your Virtual Meeting is Confirmed - IndoSaga Furniture
+[2025-09-10 09:02:24] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🗓️ New Virtual Meeting Booking - John Doe
+[2025-09-10 09:02:24] [INFO] Dual emails sent - User: kadamprajwal358@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-10 09:02:38] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: ✅ Thank you for contacting IndoSaga Furniture
+[2025-09-10 09:02:38] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 📧 New Contact Enquiry - Integration Test User - Contact Email Integration Test
+[2025-09-10 09:02:38] [INFO] Dual emails sent - User: kadamprajwal358@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-10 09:02:52] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: ✅ Your Virtual Meeting is Confirmed - IndoSaga Furniture
+[2025-09-10 09:02:54] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🗓️ New Virtual Meeting Booking - Meeting Test User
+[2025-09-10 09:02:54] [INFO] Dual emails sent - User: kadamprajwal358@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-10 09:03:57] [SUCCESS] Email sent successfully to: kadamprajwal2004@gmail.com - Subject: ✅ Your Virtual Meeting is Confirmed - IndoSaga Furniture
+[2025-09-10 09:03:58] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🗓️ New Virtual Meeting Booking - Prajwal Kadam
+[2025-09-10 09:03:58] [INFO] Dual emails sent - User: kadamprajwal2004@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-10 09:08:31] [SUCCESS] Email sent successfully to: prajwalkdm2004@gmail.com - Subject: ✅ Thank you for contacting IndoSaga Furniture
+[2025-09-10 09:08:32] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 📧 New Contact Enquiry - Prajwal Kadam - custom-order
+[2025-09-10 09:08:32] [INFO] Dual emails sent - User: prajwalkdm2004@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-10 09:13:07] [SUCCESS] Email sent successfully to: prajwalkadam1209@gmail.com - Subject: ✅ Your Virtual Meeting is Confirmed - IndoSaga Furniture
+[2025-09-10 09:13:07] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🗓️ New Virtual Meeting Booking - Prajwal Kadam
+[2025-09-10 09:13:07] [INFO] Dual emails sent - User: prajwalkadam1209@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-10 09:15:24] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: ✅ Thank you for contacting IndoSaga Furniture
+[2025-09-10 09:15:25] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 📧 New Contact Enquiry - Live Test User - Live Email Test
+[2025-09-10 09:15:25] [INFO] Dual emails sent - User: kadamprajwal358@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-10 09:15:40] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: ✅ Your Virtual Meeting is Confirmed - IndoSaga Furniture
+[2025-09-10 09:15:41] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🗓️ New Virtual Meeting Booking - Final Test User
+[2025-09-10 09:15:41] [INFO] Dual emails sent - User: kadamprajwal358@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-10 09:31:05] [ERROR] Email failed to: prajwalkdm2004@gmail.com - Error: SMTP Error: Could not authenticate.
+[2025-09-10 09:31:05] [ERROR] Email failed to: kadamprajwal358@gmail.com - Error: SMTP Error: Could not authenticate.
+[2025-09-10 09:31:05] [INFO] Dual emails sent - User: prajwalkdm2004@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-10 09:37:37] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: ✅ SMTP Test - 2025-09-10 09:37:36
+[2025-09-10 09:38:27] [SUCCESS] Email sent successfully to: prajwalkdm2004@gmail.com - Subject: ✅ Your Virtual Meeting is Confirmed - IndoSaga Furniture
+[2025-09-10 09:38:28] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🗓️ New Virtual Meeting Booking - Prajwal Arun Kadam
+[2025-09-10 09:38:28] [INFO] Dual emails sent - User: prajwalkdm2004@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-10 09:39:18] [SUCCESS] Email sent successfully to: prajwalkdm2004@gmail.com - Subject: ✅ Thank you for contacting IndoSaga Furniture
+[2025-09-10 09:39:19] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 📧 New Contact Enquiry - Prajwal Kadam - complaint
+[2025-09-10 09:39:19] [INFO] Dual emails sent - User: prajwalkdm2004@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-10 09:47:03] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🎉 Enhanced Order Confirmation Test - #TEST-20250910094703
+[2025-09-10 09:49:43] [SUCCESS] Email sent successfully to: prajwalkdm2004@gmail.com - Subject: ✅ Your Virtual Meeting is Confirmed - IndoSaga Furniture
+[2025-09-10 09:49:44] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🗓️ New Virtual Meeting Booking - Prajwal Arun Kadam
+[2025-09-10 09:49:44] [INFO] Dual emails sent - User: prajwalkdm2004@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-10 10:04:59] [SUCCESS] Email sent successfully to: prajwalkdm2004@gmail.com - Subject: ✅ Your Virtual Meeting is Confirmed - IndoSaga Furniture
+[2025-09-10 10:05:00] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🗓️ New Virtual Meeting Booking - Prajwal Arun Kadam
+[2025-09-10 10:05:00] [INFO] Dual emails sent - User: prajwalkdm2004@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-10 10:05:51] [SUCCESS] Email sent successfully to: prajwalkdm2004@gmail.com - Subject: ✅ Thank you for contacting IndoSaga Furniture
+[2025-09-10 10:05:51] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 📧 New Contact Enquiry - Prajwal Kadam - feedback
+[2025-09-10 10:05:51] [INFO] Dual emails sent - User: prajwalkdm2004@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-10 17:54:31] [SUCCESS] Email sent successfully to: kdmpraj12@gmail.com - Subject: 🎉 Order Confirmed - #COD_1757526870365_7j9rv5ony - IndoSaga Furniture
+[2025-09-10 17:54:32] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🛒 New Order Received - Order #COD_1757526870365_7j9rv5ony - ₹75099
+[2025-09-10 17:54:32] [INFO] Dual emails sent - User: kdmpraj12@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-10 17:55:50] [SUCCESS] Email sent successfully to: kdmpraj12@gmail.com - Subject: 🎉 Order Confirmed - #COD_1757526950222_qverbi3qh - IndoSaga Furniture
+[2025-09-10 17:55:51] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🛒 New Order Received - Order #COD_1757526950222_qverbi3qh - ₹58099
+[2025-09-10 17:55:51] [INFO] Dual emails sent - User: kdmpraj12@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-10 18:13:10] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: ✅ Your Virtual Meeting is Confirmed - IndoSaga Furniture
+[2025-09-10 18:13:11] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🗓️ New Virtual Meeting Booking - Prajwal Arun Kadam
+[2025-09-10 18:13:11] [INFO] Dual emails sent - User: kadamprajwal358@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-10 18:18:19] [SUCCESS] Email sent successfully to: kdmpraj12@gmail.com - Subject: 🎉 Order Confirmed - #COD_1757528295990_qrmpsidvw - IndoSaga Furniture
+[2025-09-10 18:18:20] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🛒 New Order Received - Order #COD_1757528295990_qrmpsidvw - ₹75099
+[2025-09-10 18:18:20] [INFO] Dual emails sent - User: kdmpraj12@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-10 19:08:47] [SUCCESS] Email sent successfully to: kdmpraj12@gmail.com - Subject: 🎉 Order Confirmed - #ORDER_1757531326625_5fgr05llw - IndoSaga Furniture
+[2025-09-10 19:08:48] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🛒 New Order Received - Order #ORDER_1757531326625_5fgr05llw - ₹1
+[2025-09-10 19:08:48] [INFO] Dual emails sent - User: kdmpraj12@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-11 03:57:35] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🎉 Order Confirmed - #COD_1757563051574_on5lk92nn - IndoSaga Furniture
+[2025-09-11 03:57:36] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🛒 New Order Received - Order #COD_1757563051574_on5lk92nn - ₹75099
+[2025-09-11 03:57:36] [INFO] Dual emails sent - User: kadamprajwal358@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-11 04:06:22] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: ✅ Your Virtual Meeting is Confirmed - IndoSaga Furniture
+[2025-09-11 04:06:23] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🗓️ New Virtual Meeting Booking - Kadam Prajwal Arun
+[2025-09-11 04:06:23] [INFO] Dual emails sent - User: kadamprajwal358@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-11 04:08:41] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: ✅ Thank you for contacting IndoSaga Furniture
+[2025-09-11 04:08:41] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 📧 New Contact Enquiry - Prajwal Kadam - general-question
+[2025-09-11 04:08:41] [INFO] Dual emails sent - User: kadamprajwal358@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-11 04:09:04] [SUCCESS] Email sent successfully to: kdmabhi663@gmail.com - Subject: ✅ Thank you for contacting IndoSaga Furniture
+[2025-09-11 04:09:05] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 📧 New Contact Enquiry - Prajwal Kadam - complaint
+[2025-09-11 04:09:05] [INFO] Dual emails sent - User: kdmabhi663@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-11 04:32:18] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🎉 Order Confirmed - #COD_1757565135129_psyqtpeeg - IndoSaga Furniture
+[2025-09-11 04:32:19] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🛒 New Order Received - Order #COD_1757565135129_psyqtpeeg - ₹100
+[2025-09-11 04:32:19] [INFO] Dual emails sent - User: kadamprajwal358@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-11 04:37:32] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🎉 Order Confirmed - #ORDER_1757565451382_zvtzcprkx - IndoSaga Furniture
+[2025-09-11 04:37:33] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🛒 New Order Received - Order #ORDER_1757565451382_zvtzcprkx - ₹1
+[2025-09-11 04:37:33] [INFO] Dual emails sent - User: kadamprajwal358@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-11 04:54:19] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🎉 Order Confirmed - #ORDER_1757566458064_9dxcabvz3 - IndoSaga Furniture
+[2025-09-11 04:54:19] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🛒 New Order Received - Order #ORDER_1757566458064_9dxcabvz3 - ₹1
+[2025-09-11 04:54:19] [INFO] Dual emails sent - User: kadamprajwal358@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-11 07:19:05] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🎉 Order Confirmed - #COD_1757575142538_q96f28fn4 - IndoSaga Furniture
+[2025-09-11 07:19:05] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🛒 New Order Received - Order #COD_1757575142538_q96f28fn4 - ₹185099
+[2025-09-11 07:19:05] [INFO] Dual emails sent - User: kadamprajwal358@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-11 07:28:37] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🎉 Order Confirmed - #COD_1757575714617_6395fm2va - IndoSaga Furniture
+[2025-09-11 07:28:37] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🛒 New Order Received - Order #COD_1757575714617_6395fm2va - ₹100
+[2025-09-11 07:28:37] [INFO] Dual emails sent - User: kadamprajwal358@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-11 07:33:43] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: ✅ Your Virtual Meeting is Confirmed - IndoSaga Furniture
+[2025-09-11 07:33:44] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🗓️ New Virtual Meeting Booking - Kadam Prajwal Arun
+[2025-09-11 07:33:44] [INFO] Dual emails sent - User: kadamprajwal358@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-11 08:23:32] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🎉 Order Confirmed - #COD_1757579010320_y5ui5w120 - IndoSaga Furniture
+[2025-09-11 08:23:33] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🛒 New Order Received - Order #COD_1757579010320_y5ui5w120 - ₹100
+[2025-09-11 08:23:33] [INFO] Dual emails sent - User: kadamprajwal358@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-11 08:31:54] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🎉 Order Confirmed - #COD_1757579511927_vbw866reh - IndoSaga Furniture
+[2025-09-11 08:31:55] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🛒 New Order Received - Order #COD_1757579511927_vbw866reh - ₹100
+[2025-09-11 08:31:55] [INFO] Dual emails sent - User: kadamprajwal358@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-11 09:01:07] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🎉 Order Confirmed - #COD_1757581260589_l5e303ayf - IndoSaga Furniture
+[2025-09-11 09:01:08] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🛒 New Order Received - Order #COD_1757581260589_l5e303ayf - ₹100
+[2025-09-11 09:01:08] [INFO] Dual emails sent - User: kadamprajwal358@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-11 09:04:18] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🎉 Order Confirmed - #ORDER_1757581458116_jxzrqntbx - IndoSaga Furniture
+[2025-09-11 09:04:19] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🛒 New Order Received - Order #ORDER_1757581458116_jxzrqntbx - ₹1
+[2025-09-11 09:04:19] [INFO] Dual emails sent - User: kadamprajwal358@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-11 09:13:40] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🎉 Order Confirmed - #COD_1757582017699_doqlid01g - IndoSaga Furniture
+[2025-09-11 09:13:40] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🛒 New Order Received - Order #COD_1757582017699_doqlid01g - ₹100
+[2025-09-11 09:13:40] [INFO] Dual emails sent - User: kadamprajwal358@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-12 05:39:31] [ERROR] Email failed to: kdmarun12@gmail.com - Error: SMTP Error: Could not authenticate.
+[2025-09-12 05:39:31] [ERROR] Email failed to: kadamprajwal358@gmail.com - Error: SMTP Error: Could not authenticate.
+[2025-09-12 05:39:31] [INFO] Dual emails sent - User: kdmarun12@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-12 06:07:32] [ERROR] Email failed to: kdmarun12@gmail.com - Error: SMTP Error: Could not authenticate.
+[2025-09-12 06:07:32] [ERROR] Email failed to: kadamprajwal358@gmail.com - Error: SMTP Error: Could not authenticate.
+[2025-09-12 06:07:32] [INFO] Dual emails sent - User: kdmarun12@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-12 06:10:37] [SUCCESS] Email sent successfully to: kdmarun12@gmail.com - Subject: 🎉 Order Confirmed - #COD_1757657433203_rwmdz044e - IndoSaga Furniture
+[2025-09-12 06:10:38] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🛒 New Order Received - Order #COD_1757657433203_rwmdz044e - ₹100
+[2025-09-12 06:10:38] [INFO] Dual emails sent - User: kdmarun12@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-12 06:15:40] [SUCCESS] Email sent successfully to: kdmarun12@gmail.com - Subject: 🎉 Order Confirmed - #COD_1757657736244_xymiqcq8z - IndoSaga Furniture
+[2025-09-12 06:15:41] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🛒 New Order Received - Order #COD_1757657736244_xymiqcq8z - ₹100
+[2025-09-12 06:15:41] [INFO] Dual emails sent - User: kdmarun12@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-12 06:16:44] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🚫 Order Cancellation Confirmed - #750AEA78 - IndoSaga Furniture
+[2025-09-12 06:16:45] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🚨 Order Cancellation Alert - Order #750AEA78 - ₹100
+[2025-09-12 06:24:26] [SUCCESS] Email sent successfully to: kdmarun12@gmail.com - Subject: 🎉 Order Confirmed - #COD_1757658262614_t0c3qpq9n - IndoSaga Furniture
+[2025-09-12 06:24:27] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🛒 New Order Received - Order #COD_1757658262614_t0c3qpq9n - ₹100
+[2025-09-12 06:24:27] [INFO] Dual emails sent - User: kdmarun12@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-12 06:25:23] [SUCCESS] Email sent successfully to: kdmarun12@gmail.com - Subject: 🚫 Order Cancellation Confirmed - #1720096D - IndoSaga Furniture
+[2025-09-12 06:25:23] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🚨 Order Cancellation Alert - Order #1720096D - ₹100
+[2025-09-16 06:09:27] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: ✅ Your Virtual Meeting is Confirmed - IndoSaga Furniture
+[2025-09-16 06:09:33] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🗓️ New Virtual Meeting Booking - prajwal Arun kadam
+[2025-09-16 06:09:33] [INFO] Dual emails sent - User: kadamprajwal358@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-16 06:10:25] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: ✅ Thank you for contacting IndoSaga Furniture
+[2025-09-16 06:10:31] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 📧 New Contact Enquiry - prajwal kadam - product-inquiry
+[2025-09-16 06:10:31] [INFO] Dual emails sent - User: kadamprajwal358@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-16 06:26:31] [SUCCESS] Email sent successfully to: kdmarun12@gmail.com - Subject: 🚫 Order Cancellation Confirmed - #1C1CBCA8 - IndoSaga Furniture
+[2025-09-16 06:26:31] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🚨 Order Cancellation Alert - Order #1C1CBCA8 - ₹1
+[2025-09-16 06:38:11] [SUCCESS] Email sent successfully to: kdmarun12@gmail.com - Subject: 🎉 Order Confirmed - #ORDER_1758004690386_53cj7mifh - IndoSaga Furniture
+[2025-09-16 06:38:12] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🛒 New Order Received - Order #ORDER_1758004690386_53cj7mifh - ₹25000
+[2025-09-16 06:38:12] [INFO] Dual emails sent - User: kdmarun12@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-16 06:57:41] [SUCCESS] Email sent successfully to: prajwalarunkadam12@gmail.com - Subject: 🎉 Order Confirmed - #ORDER_1758005858588_f4rcb9rus - IndoSaga Furniture
+[2025-09-16 06:57:41] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🛒 New Order Received - Order #ORDER_1758005858588_f4rcb9rus - ₹25000
+[2025-09-16 06:57:41] [INFO] Dual emails sent - User: prajwalarunkadam12@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-16 07:03:41] [SUCCESS] Email sent successfully to: prajwalarunkadam12@gmail.com - Subject: 🎉 Order Confirmed - #ORDER_1758006220390_2monl9bs5 - IndoSaga Furniture
+[2025-09-16 07:03:42] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🛒 New Order Received - Order #ORDER_1758006220390_2monl9bs5 - ₹25000
+[2025-09-16 07:03:42] [INFO] Dual emails sent - User: prajwalarunkadam12@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-16 07:12:48] [SUCCESS] Email sent successfully to: prajwalarunkadam12@gmail.com - Subject: 🎉 Order Confirmed - #ORDER_1758006767750_g41f3qpwr - IndoSaga Furniture
+[2025-09-16 07:12:49] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🛒 New Order Received - Order #ORDER_1758006767750_g41f3qpwr - ₹25000
+[2025-09-16 07:12:49] [INFO] Dual emails sent - User: prajwalarunkadam12@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-16 07:32:22] [SUCCESS] Email sent successfully to: abhikdm999@gmail.com - Subject: 🎉 Order Confirmed - #ORDER_1758007940268_4a8wt68el - IndoSaga Furniture
+[2025-09-16 07:32:23] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🛒 New Order Received - Order #ORDER_1758007940268_4a8wt68el - ₹1
+[2025-09-16 07:32:23] [INFO] Dual emails sent - User: abhikdm999@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-16 11:02:10] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🎉 Order Confirmed - #ORDER_1758013324134_s3kl64dau - IndoSaga Furniture
+[2025-09-16 11:02:16] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🛒 New Order Received - Order #ORDER_1758013324134_s3kl64dau - ₹1
+[2025-09-16 11:02:16] [INFO] Dual emails sent - User: kadamprajwal358@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-16 11:04:25] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🎉 Order Confirmed - #ORDER_1758013459305_xb5qpk2qw - IndoSaga Furniture
+[2025-09-16 11:04:31] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🛒 New Order Received - Order #ORDER_1758013459305_xb5qpk2qw - ₹1
+[2025-09-16 11:04:31] [INFO] Dual emails sent - User: kadamprajwal358@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-16 11:06:37] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🚫 Order Cancellation Confirmed - #647F7067 - IndoSaga Furniture
+[2025-09-16 11:06:43] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🚨 Order Cancellation Alert - Order #647F7067 - ₹100
+[2025-09-16 11:11:39] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: ✅ Thank you for contacting IndoSaga Furniture
+[2025-09-16 11:11:46] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 📧 New Contact Enquiry - prajwal kadam - custom-order
+[2025-09-16 11:11:46] [INFO] Dual emails sent - User: kadamprajwal358@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-16 11:12:44] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: ✅ Your Virtual Meeting is Confirmed - IndoSaga Furniture
+[2025-09-16 11:12:50] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🗓️ New Virtual Meeting Booking - prajwal Arun kadam
+[2025-09-16 11:12:50] [INFO] Dual emails sent - User: kadamprajwal358@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-16 11:21:41] [SUCCESS] Email sent successfully to: nikitanagargoje4@gmail.com - Subject: ✅ Your Virtual Meeting is Confirmed - IndoSaga Furniture
+[2025-09-16 11:21:47] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🗓️ New Virtual Meeting Booking - prajwal Arun kadam
+[2025-09-16 11:21:47] [INFO] Dual emails sent - User: nikitanagargoje4@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-16 11:24:10] [SUCCESS] Email sent successfully to: nikitanagargoje4@gmail.com - Subject: ✅ Your Virtual Meeting is Confirmed - IndoSaga Furniture
+[2025-09-16 11:24:16] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🗓️ New Virtual Meeting Booking - Nikita Nagargoje
+[2025-09-16 11:24:16] [INFO] Dual emails sent - User: nikitanagargoje4@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-16 11:26:50] [SUCCESS] Email sent successfully to: nikitanagargoje4@gmail.com - Subject: 🚫 Order Cancellation Confirmed - #88192083 - IndoSaga Furniture
+[2025-09-16 11:26:55] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🚨 Order Cancellation Alert - Order #88192083 - ₹100
+[2025-09-16 11:28:32] [SUCCESS] Email sent successfully to: nikitanagargoje4@gmail.com - Subject: ✅ Thank you for contacting IndoSaga Furniture
+[2025-09-16 11:28:38] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 📧 New Contact Enquiry - nikita  nagargoje - custom-order
+[2025-09-16 11:28:38] [INFO] Dual emails sent - User: nikitanagargoje4@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-16 11:31:55] [SUCCESS] Email sent successfully to: nikitanagargoje4@gmail.com - Subject: 🎉 Order Confirmed - #ORDER_1758015108730_9yrdanffx - IndoSaga Furniture
+[2025-09-16 11:32:01] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🛒 New Order Received - Order #ORDER_1758015108730_9yrdanffx - ₹1
+[2025-09-16 11:32:01] [INFO] Dual emails sent - User: nikitanagargoje4@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-18 09:35:02] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: ✅ Your Virtual Meeting is Confirmed - IndoSaga Furniture
+[2025-09-18 09:35:06] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🗓️ New Virtual Meeting Booking - prajwal Arun kadam
+[2025-09-18 09:35:06] [INFO] Dual emails sent - User: kadamprajwal358@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-18 10:29:41] [SUCCESS] Email sent successfully to: kadamprajwal2004@gmail.com - Subject: ✅ Thank you for contacting IndoSaga Furniture
+[2025-09-18 10:29:42] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 📧 New Contact Enquiry - Prajwal Kadam - custom-order
+[2025-09-18 10:29:42] [INFO] Dual emails sent - User: kadamprajwal2004@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-18 10:43:31] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: ✅ Your Virtual Meeting is Confirmed - IndoSaga Furniture
+[2025-09-18 10:43:31] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🗓️ New Virtual Meeting Booking - Prajwal Kadam
+[2025-09-18 10:43:31] [INFO] Dual emails sent - User: kadamprajwal358@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-18 11:58:25] [SUCCESS] Email sent successfully to: prajwalkadam1209@gmail.com - Subject: 🎉 Order Confirmed - #ORDER_1758196701063_e64wxx0cu - IndoSaga Furniture
+[2025-09-18 11:58:25] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🛒 New Order Received - Order #ORDER_1758196701063_e64wxx0cu - ₹1
+[2025-09-18 11:58:25] [INFO] Dual emails sent - User: prajwalkadam1209@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-20 05:37:33] [SUCCESS] Email sent successfully to: prajwalkadam1209@gmail.com - Subject: 🎉 Order Confirmed - #ORDER_1758346651675_16j84n2er - IndoSaga Furniture
+[2025-09-20 05:37:34] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🛒 New Order Received - Order #ORDER_1758346651675_16j84n2er - ₹1
+[2025-09-20 05:37:34] [INFO] Dual emails sent - User: prajwalkadam1209@gmail.com, Admin: kadamprajwal358@gmail.com
+[2025-09-20 05:43:03] [SUCCESS] Email sent successfully to: prajwalkadam1209@gmail.com - Subject: 🚫 Order Cancellation Confirmed - #PGUJ6AZA - IndoSaga Furniture
+[2025-09-20 05:43:03] [SUCCESS] Email sent successfully to: kadamprajwal358@gmail.com - Subject: 🚨 Order Cancellation Alert - Order #PGUJ6AZA - ₹1

@@ -1,11 +1,11 @@
 import { sql } from 'drizzle-orm';
-import { 
-  pgTable, 
-  varchar, 
-  text, 
-  integer, 
-  decimal, 
-  timestamp, 
+import {
+  pgTable,
+  varchar,
+  text,
+  integer,
+  decimal,
+  timestamp,
   boolean,
   jsonb,
   index
@@ -177,6 +177,23 @@ export const contactInquiries = pgTable("contact_inquiries", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
+// Payments table
+export const payments = pgTable("payments", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  orderId: varchar("order_id").references(() => orders.id).notNull(),
+  userId: varchar("user_id").references(() => users.id).notNull(),
+  amount: decimal("amount", { precision: 10, scale: 2 }).notNull(),
+  currency: varchar("currency").default("INR"),
+  method: varchar("method"), // upi, card, netbanking, etc.
+  status: varchar("status").default("pending"), // pending, completed, failed
+  razorpayOrderId: varchar("razorpay_order_id"),
+  razorpayPaymentId: varchar("razorpay_payment_id"),
+  razorpaySignature: varchar("razorpay_signature"),
+  gatewayResponse: jsonb("gateway_response"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
 // Product reviews table
 export const productReviews = pgTable("product_reviews", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
@@ -213,6 +230,7 @@ export const usersRelations = relations(users, ({ many }) => ({
   wishlistItems: many(wishlistItems),
   orders: many(orders),
   reviews: many(productReviews),
+  payments: many(payments),
 }));
 
 export const categoriesRelations = relations(categories, ({ many }) => ({
@@ -272,6 +290,7 @@ export const ordersRelations = relations(orders, ({ one, many }) => ({
     references: [users.id],
   }),
   orderItems: many(orderItems),
+  payments: many(payments),
 }));
 
 export const orderItemsRelations = relations(orderItems, ({ one }) => ({
@@ -306,6 +325,23 @@ export const productQuestionsRelations = relations(productQuestions, ({ one }) =
     references: [users.id],
   }),
 }));
+
+export const paymentsRelations = relations(payments, ({ one }) => ({
+  order: one(orders, {
+    fields: [payments.orderId],
+    references: [orders.id],
+  }),
+  user: one(users, {
+    fields: [payments.userId],
+    references: [users.id],
+  }),
+}));
+
+export const insertPaymentSchema = createInsertSchema(payments).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
 
 // Insert schemas
 export const insertUserSchema = createInsertSchema(users).omit({
@@ -380,6 +416,9 @@ export const insertProductQuestionSchema = createInsertSchema(productQuestions).
   createdAt: true,
   updatedAt: true,
 });
+
+export type Payment = typeof payments.$inferSelect;
+export type InsertPayment = z.infer<typeof insertPaymentSchema>;
 
 // Types
 export type User = typeof users.$inferSelect;

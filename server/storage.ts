@@ -21,6 +21,8 @@ import {
   type InsertProductReview,
   type ProductQuestion,
   type InsertProductQuestion,
+  type Payment,
+  type InsertPayment,
 } from "@shared/schema";
 
 export interface IStorage {
@@ -83,6 +85,13 @@ export interface IStorage {
   getProductQuestions(productId: string): Promise<ProductQuestion[]>;
   createProductQuestion(question: InsertProductQuestion): Promise<ProductQuestion>;
   updateProductQuestion(id: string, data: Partial<ProductQuestion>): Promise<ProductQuestion | undefined>;
+
+  // Payment operations
+  getPayments(filters?: { userId?: string; orderId?: string; status?: string }): Promise<Payment[]>;
+  getPayment(id: string): Promise<Payment | undefined>;
+  getPaymentByRazorpayOrderId(razorpayOrderId: string): Promise<Payment | undefined>;
+  createPayment(payment: InsertPayment): Promise<Payment>;
+  updatePayment(id: string, data: Partial<Payment>): Promise<Payment | undefined>;
 }
 
 // Use PostgreSQL storage implementation via Drizzle
@@ -95,7 +104,7 @@ export const getStorage = async (): Promise<IStorage> => {
   if (!storageInstance) {
     storageInstance = new DrizzleStorage();
   }
-  return storageInstance;
+  return storageInstance!;
 };
 
 // Default export as JSONStorage for initial load if needed, 

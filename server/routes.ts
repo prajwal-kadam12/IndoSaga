@@ -5,15 +5,15 @@ import multer from "multer";
 import sharp from "sharp";
 import { getStorage } from "./storage";
 
-// Import MySQL API routes
-import productQuestionsRouter from './routes/product-questions.js';
-import productReviewsRouter from './routes/product-reviews.js';
-import ordersRouter from './routes/orders.js';
-import orderItemsRouter from './routes/order-items.js';
-import paymentsRouter from './routes/payments.js';
-import { 
-  insertProductSchema, 
-  insertCategorySchema, 
+// Import API routes
+import productQuestionsRouter from './routes/product-questions';
+import productReviewsRouter from './routes/product-reviews';
+import ordersRouter from './routes/orders';
+import orderItemsRouter from './routes/order-items';
+import paymentsRouter from './routes/payments';
+import {
+  insertProductSchema,
+  insertCategorySchema,
   insertCartItemSchema,
   insertWishlistItemSchema,
   insertOrderSchema,
@@ -263,66 +263,66 @@ async function findSimilarProductsByImage(imageBuffer: Buffer) {
     // Extract basic image properties for analysis
     const image = sharp(imageBuffer);
     const { width, height, channels } = await image.metadata();
-    
+
     // Get dominant colors and basic properties
     const { dominant } = await image.stats();
-    
+
     // Get all products and categories from storage
     const allProducts = await (await getStorage()).getProducts({});
     const allCategories = await (await getStorage()).getCategories();
-    
+
     // Create a category lookup map
     const categoryMap = new Map();
     allCategories.forEach(cat => {
       categoryMap.set(cat.id, cat.name);
     });
-    
+
     // For now, implement a simple similarity algorithm based on:
     // 1. Product categories (furniture types are visually similar)
     // 2. Random selection with weighted preferences
     // 3. Featured products get higher priority
-    
+
     // Simulate AI-based categorization based on image properties
     let detectedCategory = '';
     const aspectRatio = width && height ? width / height : 1;
-    
+
     // Enhanced heuristic based on image properties and available categories
     const availableCategories = allCategories.map(cat => cat.name);
     console.log('Available categories:', availableCategories);
-    
+
     if (aspectRatio > 1.5) {
       // Wide images likely to be sofas, dining tables
-      const wideCategories = availableCategories.filter(cat => 
-        cat.toLowerCase().includes('sofa') || 
+      const wideCategories = availableCategories.filter(cat =>
+        cat.toLowerCase().includes('sofa') ||
         cat.toLowerCase().includes('dining') ||
         cat.toLowerCase().includes('table')
       );
-      detectedCategory = wideCategories.length > 0 ? 
-        wideCategories[Math.floor(Math.random() * wideCategories.length)] : 
+      detectedCategory = wideCategories.length > 0 ?
+        wideCategories[Math.floor(Math.random() * wideCategories.length)] :
         availableCategories[0];
     } else if (aspectRatio < 0.8) {
       // Tall images likely to be wardrobes, chairs
-      const tallCategories = availableCategories.filter(cat => 
-        cat.toLowerCase().includes('wardrobe') || 
+      const tallCategories = availableCategories.filter(cat =>
+        cat.toLowerCase().includes('wardrobe') ||
         cat.toLowerCase().includes('chair') ||
         cat.toLowerCase().includes('cabinet')
       );
-      detectedCategory = tallCategories.length > 0 ? 
-        tallCategories[Math.floor(Math.random() * tallCategories.length)] : 
+      detectedCategory = tallCategories.length > 0 ?
+        tallCategories[Math.floor(Math.random() * tallCategories.length)] :
         availableCategories[0];
     } else {
       // Square-ish images could be any furniture - try all categories
       detectedCategory = availableCategories[Math.floor(Math.random() * availableCategories.length)];
     }
-    
+
     console.log(`Detected furniture category: ${detectedCategory} (aspect ratio: ${aspectRatio.toFixed(2)})`);
-    
+
     // Filter products by detected category or similar categories
     let exactMatches = allProducts.filter(product => {
       const productCategoryName = categoryMap.get(product.categoryId);
       return productCategoryName === detectedCategory;
     });
-    
+
     let partialMatches = allProducts.filter(product => {
       const productCategoryName = categoryMap.get(product.categoryId);
       return productCategoryName && detectedCategory && (
@@ -330,50 +330,50 @@ async function findSimilarProductsByImage(imageBuffer: Buffer) {
         detectedCategory.toLowerCase().includes(productCategoryName.toLowerCase())
       );
     });
-    
+
     let featuredProducts = allProducts.filter(p => p.featured);
-    
+
     // Combine results: exact matches first, then partial matches, then featured products
     let similarProducts = [
       ...exactMatches,
       ...partialMatches.filter(p => !exactMatches.find(ep => ep.id === p.id)),
       ...featuredProducts.filter(p => !exactMatches.find(ep => ep.id === p.id) && !partialMatches.find(pm => pm.id === p.id))
     ];
-    
+
     // If still no matches, return a diverse selection of all products
     if (similarProducts.length === 0) {
       console.log('No category matches found, returning diverse selection');
       similarProducts = allProducts.slice(0, 8);
     }
-    
+
     console.log(`Found ${exactMatches.length} exact matches, ${partialMatches.length} partial matches, ${featuredProducts.length} featured products`);
     console.log('Category map:', Array.from(categoryMap.entries()));
     console.log('Products with categories:', allProducts.slice(0, 3).map(p => ({ id: p.id, name: p.name, categoryId: p.categoryId, categoryName: categoryMap.get(p.categoryId) })));
-    
+
     // Sort by relevance (featured first, then by category match, then randomize)
     similarProducts.sort((a, b) => {
       // Featured products get highest priority
       if (a.featured !== b.featured) {
         return b.featured ? 1 : -1;
       }
-      
+
       // Then prioritize exact category matches
       const aCategoryName = categoryMap.get(a.categoryId);
       const bCategoryName = categoryMap.get(b.categoryId);
       const aExactMatch = aCategoryName === detectedCategory;
       const bExactMatch = bCategoryName === detectedCategory;
-      
+
       if (aExactMatch !== bExactMatch) {
         return bExactMatch ? 1 : -1;
       }
-      
+
       // Random shuffle for similar products
       return Math.random() - 0.5;
     });
-    
+
     // Return top 6-8 similar products
     return similarProducts.slice(0, 8);
-    
+
   } catch (error) {
     console.error('Error in image similarity analysis:', error);
     // Fallback: return featured products
@@ -384,7 +384,7 @@ async function findSimilarProductsByImage(imageBuffer: Buffer) {
 export async function registerRoutes(app: Express): Promise<Server> {
   // Use session middleware for client-side Auth0 integration
   app.use(session({
-    secret: process.env.SESSION_SECRET || 'fallback-secret-key', 
+    secret: process.env.SESSION_SECRET || 'fallback-secret-key',
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -393,7 +393,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       maxAge: 24 * 60 * 60 * 1000
     }
   }));
-  
+
   console.log('Using client-side Auth0 authentication');
 
   // Configure multer for image uploads
@@ -429,7 +429,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             console.error('Session destroy error:', err);
             return res.status(500).json({ message: 'Logout failed' });
           }
-          
+
           // Clear the session cookie
           res.clearCookie('connect.sid');
           res.json({ success: true, message: 'Logged out successfully' });
@@ -453,7 +453,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       // Check if user exists in database, create if not
       const existingUser = await (await getStorage()).getUserByEmail(user.email);
-      
+
       if (!existingUser && user.email) {
         // Create new user from session
         const newUser = await (await getStorage()).upsertUser({
@@ -464,7 +464,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           profileImageUrl: user.picture || '',
           provider: user.provider || 'demo'
         });
-        
+
         return res.json(newUser);
       }
 
@@ -479,11 +479,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post('/api/auth/sync', async (req, res) => {
     try {
       const { user, localCartItems = [] } = req.body;
-      
+
       if (!user || !user.email) {
         return res.status(400).json({ message: 'Invalid user data' });
       }
-      
+
       // Store user in session
       (req as any).session.user = {
         id: user.sub || crypto.randomUUID(),
@@ -494,11 +494,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
         profileImageUrl: user.picture || '',
         provider: 'auth0'
       };
-      
+
       // Check if user exists in database, create if not
       let existingUser = await (await getStorage()).getUserByEmail(user.email);
       let dbUser;
-      
+
       if (!existingUser) {
         const newUser = await (await getStorage()).upsertUser({
           email: user.email,
@@ -512,11 +512,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
       } else {
         dbUser = existingUser;
       }
-      
+
       // Migrate localStorage cart items to authenticated user's cart
       if (localCartItems.length > 0 && dbUser) {
         console.log(`Migrating ${localCartItems.length} localStorage cart items to authenticated user`);
-        
+
         for (const localItem of localCartItems) {
           try {
             // Validate and add each item to the authenticated user's cart
@@ -525,21 +525,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
               productId: localItem.productId || localItem.id,
               quantity: localItem.quantity || 1
             };
-            
+
             // Validate the cart item data
             const validatedCartData = insertCartItemSchema.parse(cartData);
             await (await getStorage()).addToCart(validatedCartData);
-            
+
             console.log(`Migrated item: ${cartData.productId} (qty: ${cartData.quantity})`);
           } catch (itemError) {
             console.error('Error migrating cart item:', itemError, localItem);
             // Continue with other items even if one fails
           }
         }
-        
+
         console.log('Cart migration completed');
       }
-      
+
       res.json(dbUser);
     } catch (error) {
       console.error('Auth sync error:', error);
@@ -549,7 +549,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Check authentication status
   app.get('/api/auth/me', async (req, res) => {
-    try {      
+    try {
       const user = (req as any).session?.user;
       if (!user) {
         return res.status(401).json({ message: 'Not authenticated' });
@@ -558,7 +558,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Get complete user data from database
       try {
         const dbUser = await (await getStorage()).getUserByEmail(user.email);
-        
+
         if (dbUser) {
           // Merge session data with database data
           const completeUser = {
@@ -570,7 +570,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             lastName: dbUser.lastName || user.family_name,
             profileImageUrl: dbUser.profileImageUrl || user.picture
           };
-          
+
           res.json(completeUser);
         } else {
           // Return session data if no database record
@@ -587,6 +587,28 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Health check endpoint
+  app.get("/api/health", async (req, res) => {
+    try {
+      const storage = await getStorage();
+      const products = await storage.getProducts({ limit: 1 } as any);
+      res.json({
+        status: "ok",
+        database: "connected",
+        productCount: products.length,
+        env: process.env.NODE_ENV,
+        databaseUrlSet: !!process.env.DATABASE_URL
+      });
+    } catch (error: any) {
+      res.status(500).json({
+        status: "error",
+        database: "disconnected",
+        error: error.message,
+        hint: "Check DATABASE_URL in Netlify environment variables."
+      });
+    }
+  });
+
   // Update user profile
   app.put('/api/auth/profile', async (req, res) => {
     try {
@@ -596,7 +618,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       const { name, email, phone, address } = req.body;
-      
+
       // Update user in database
       await (await getStorage()).upsertUser({
         email: email || user.email,
@@ -618,8 +640,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         address: address || ''
       };
 
-      res.json({ 
-        success: true, 
+      res.json({
+        success: true,
         message: "Profile updated successfully",
         user: (req as any).session.user
       });
@@ -695,7 +717,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         featured: featured === 'true',
         isDeal: isDeal === 'true',
       };
-      
+
       const products = await (await getStorage()).getProducts(filters);
       res.json(products);
     } catch (error) {
@@ -760,11 +782,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       console.log("Processing image search request...");
-      
+
       // Process the uploaded image using Sharp for analysis
       const imageBuffer = req.file.buffer;
       const imageMetadata = await sharp(imageBuffer).metadata();
-      
+
       console.log("Image metadata:", {
         format: imageMetadata.format,
         width: imageMetadata.width,
@@ -775,7 +797,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // For now, implement a simple similarity search based on product categories and features
       // In a production system, you'd use AI/ML services like Google Vision API, AWS Rekognition, etc.
       const similarProducts = await findSimilarProductsByImage(imageBuffer);
-      
+
       console.log(`Found ${similarProducts.length} similar products`);
       res.json(similarProducts);
     } catch (error) {
@@ -935,14 +957,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post('/api/support/tickets', async (req, res) => {
     try {
       const { customerName, customerEmail, customerPhone, subject, message, priority = 'medium' } = req.body;
-      
+
       if (!customerName || !customerEmail || !subject || !message) {
         return res.status(400).json({ message: 'Missing required fields' });
       }
 
       // In a real implementation, this would save to a support ticket database
       const ticketId = `TICKET-${Date.now()}`;
-      
+
       const ticketData = {
         ticketId,
         customerName,
@@ -950,13 +972,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
         subject: subject,
         priority
       };
-      
+
       console.log('Support ticket created:', ticketData);
 
       // Email service removed - ticket created successfully
 
-      res.json({ 
-        success: true, 
+      res.json({
+        success: true,
         ticketId,
         message: 'Support ticket created successfully'
       });
@@ -970,7 +992,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { message, ticketId } = req.body;
       const user = (req as any).session?.user;
-      
+
       if (!message) {
         return res.status(400).json({ message: 'Message is required' });
       }
@@ -1014,17 +1036,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const user = (req as any).session?.user;
 
-      const { 
-        customerName, 
-        customerEmail, 
-        customerPhone, 
-        appointmentDate, 
+      const {
+        customerName,
+        customerEmail,
+        customerPhone,
+        appointmentDate,
         appointmentTime,
         meetingType = 'virtual_showroom',
         notes,
         date,
         time,
-        type 
+        type
       } = req.body;
 
       // Handle both old and new format
@@ -1038,7 +1060,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       // Email rate limiting removed
       const appointmentId = `APT-${Date.now()}`;
-      
+
       // In a real implementation, this would save to database
       const appointment = {
         id: appointmentId,
@@ -1139,14 +1161,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       const { appointmentId } = req.body;
-      
+
       // In a real implementation, this would:
       // 1. Validate the appointment
       // 2. Generate WebRTC connection details
       // 3. Notify the shop owner
-      
+
       const sessionId = `VIDEO-${Date.now()}`;
-      
+
       console.log('Video call started:', {
         sessionId,
         appointmentId,
@@ -1165,14 +1187,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Orders - require authentication
-  
+
   // GET orders for authenticated user
   app.get("/api/orders", async (req, res) => {
     const user = (req as any).session?.user;
     if (!user) {
       return res.status(401).json({ message: 'Authentication required' });
     }
-    
+
     try {
       const dbUser = await (await getStorage()).getUserByEmail(user?.email || '');
       if (!dbUser) {
@@ -1192,11 +1214,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { id } = req.params;
       const order = await (await getStorage()).getOrder(id);
-      
+
       if (!order) {
         return res.status(404).json({ message: "Order not found" });
       }
-      
+
       res.json(order);
     } catch (error) {
       console.error("Error fetching order:", error);
@@ -1208,18 +1230,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/orders", async (req, res) => {
     const user = (req as any).session?.user;
     const { orderItems: orderItemsData, paymentMethod, ...orderData } = req.body;
-    
+
     // Allow COD orders without authentication (guest checkout)
     const isCODOrder = paymentMethod === 'cod';
-    
+
     if (!user && !isCODOrder) {
       return res.status(401).json({ message: 'Authentication required for online payments' });
     }
-    
+
     try {
       let dbUser = null;
       let userId = null;
-      
+
       // For authenticated users, get their database record
       if (user) {
         dbUser = await (await getStorage()).getUserByEmail(user?.email || '');
@@ -1228,7 +1250,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
         userId = dbUser?.id;
       }
-      
+
       // For COD guest checkout, create a temporary user if email is provided
       if (!dbUser && isCODOrder && orderData.customerEmail) {
         try {
@@ -1252,14 +1274,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       // Create the main order - ensure total is string
-      const orderToCreate = insertOrderSchema.parse({ 
-        ...orderData, 
+      const orderToCreate = insertOrderSchema.parse({
+        ...orderData,
         paymentMethod,
         userId: userId || null, // Allow null for guest orders
         total: String(orderData.total) // Convert total to string for schema
       });
       const order = await (await getStorage()).createOrder(orderToCreate);
-      
+
       // Create order items if they exist
       if (orderItemsData && orderItemsData.length > 0) {
         const orderItems = orderItemsData.map((item: any) => ({
@@ -1268,10 +1290,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
           quantity: item.quantity,
           price: item.price
         }));
-        
+
         await (await getStorage()).addOrderItems(orderItems);
       }
-      
+
       // Clear the user's cart after successful order creation (only if user is authenticated)
       if (dbUser) {
         await (await getStorage()).clearCart(dbUser.id);
@@ -1310,7 +1332,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             total: orderData.total,
             paymentStatus: orderData.paymentStatus || 'paid'
           });
-          
+
           if (smsResult.success) {
             console.log(`📱 Order confirmation SMS sent for order ${order.id} to ${orderData.phone}`);
           } else {
@@ -1323,7 +1345,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       } else {
         console.log(`ℹ️ No phone number provided for order ${order.id}, skipping SMS`);
       }
-      
+
       res.json(order);
     } catch (error) {
       console.error("Error creating order:", error);
@@ -1339,11 +1361,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/orders/direct-checkout", async (req, res) => {
     try {
       const { orderItems: orderItemsData, customerEmail, ...orderData } = req.body;
-      
+
       // For direct checkout, we might not have a logged-in user session
       const user = (req as any).session?.user;
       let userId = null;
-      
+
       // If user is authenticated, link the order to their account
       if (user) {
         const dbUser = await (await getStorage()).getUserByEmail(user.email || '');
@@ -1351,17 +1373,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
           userId = dbUser.id;
         }
       }
-      
+
       // Email rate limiting removed
-      
+
       // Create the main order with or without user association
-      const orderToCreate = insertOrderSchema.parse({ 
-        ...orderData, 
+      const orderToCreate = insertOrderSchema.parse({
+        ...orderData,
         userId,
         paymentStatus: orderData.paymentStatus || 'paid' // Default to paid for successful payments
       });
       const order = await (await getStorage()).createOrder(orderToCreate);
-      
+
       // Create order items if they exist
       if (orderItemsData && orderItemsData.length > 0) {
         const orderItems = orderItemsData.map((item: any) => ({
@@ -1370,10 +1392,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
           quantity: item.quantity,
           price: item.price
         }));
-        
+
         await (await getStorage()).addOrderItems(orderItems);
       }
-      
+
       // Clear the user's cart if they are authenticated
       if (userId) {
         await (await getStorage()).clearCart(userId);
@@ -1412,7 +1434,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             total: orderData.total,
             paymentStatus: orderData.paymentStatus || 'paid'
           });
-          
+
           if (smsResult.success) {
             console.log(`📱 Order confirmation SMS sent for order ${order.id} to ${orderData.phone}`);
           } else {
@@ -1425,7 +1447,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       } else {
         console.log(`ℹ️ No phone number provided for order ${order.id}, skipping SMS`);
       }
-      
+
       res.json(order);
     } catch (error) {
       console.error("Error creating direct checkout order:", error);
@@ -1453,7 +1475,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const { id } = req.params;
       const { reason, details, customerEmail, customerName } = req.body;
       const order = await (await getStorage()).getOrder(id);
-      
+
       if (!order) {
         return res.status(404).json({ message: "Order not found" });
       }
@@ -1465,8 +1487,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       // Check if order can be cancelled
       if (!['pending', 'processing', 'confirmed'].includes(order.status || 'pending')) {
-        return res.status(400).json({ 
-          message: "Order cannot be cancelled at this stage. Only pending, processing, or confirmed orders can be cancelled." 
+        return res.status(400).json({
+          message: "Order cannot be cancelled at this stage. Only pending, processing, or confirmed orders can be cancelled."
         });
       }
 
@@ -1528,10 +1550,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         // Don't fail the cancellation if email fails
       }
 
-      res.json({ 
-        success: true, 
-        message: "Order cancelled successfully. Confirmation emails have been sent.", 
-        order: updatedOrder 
+      res.json({
+        success: true,
+        message: "Order cancelled successfully. Confirmation emails have been sent.",
+        order: updatedOrder
       });
     } catch (error) {
       console.error("Error cancelling order:", error);
@@ -1544,15 +1566,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const configKeyId = keyId; // Use the same keyId that was determined during initialization
       if (!configKeyId) {
-        return res.json({ 
+        return res.json({
           key: null,
           enabled: false,
           message: "Razorpay not configured"
         });
       }
-      res.json({ 
+      res.json({
         key: configKeyId,
-        enabled: !!razorpay 
+        enabled: !!razorpay
       });
     } catch (error) {
       console.error("Error fetching payment config:", error);
@@ -1581,28 +1603,28 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
 
       const { productId, quantity, currency, isCartOrder, orderItems } = bodySchema.parse(req.body);
-      
+
       let amount = 0;
       let productName = "";
       let productDetails: any;
-      
+
       if (isCartOrder && orderItems && orderItems.length > 0) {
         // Handle cart order with multiple products
         let totalAmount = 0;
         const productNames: string[] = [];
-        
+
         for (const item of orderItems) {
           const product = await (await getStorage()).getProduct(item.productId);
           if (!product) {
             return res.status(404).json({ message: `Product not found: ${item.productId}` });
           }
-          
+
           // Use server-side price for security
           const itemPrice = parseFloat(product.price);
           totalAmount += itemPrice * item.quantity;
           productNames.push(product.name);
         }
-        
+
         amount = totalAmount;
         productName = `${orderItems.length} items: ${productNames.join(', ')}`;
         productDetails = {
@@ -1626,7 +1648,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           price: product.price
         };
       }
-      
+
       const options = {
         amount: Math.round(amount * 100), // Razorpay expects amount in paise
         currency,
@@ -1641,11 +1663,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
       };
 
       console.log("Creating Razorpay order with options:", options);
-      
+
       try {
         const order = await razorpay.orders.create(options);
         console.log("Razorpay order created successfully:", order.id);
-        
+
         // Return order with product details for verification
         res.json({
           ...order,
@@ -1656,10 +1678,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       } catch (razorpayError: any) {
         console.error('Razorpay API Error:', razorpayError);
-        
+
         // Check if it's an authentication error
         if (razorpayError.statusCode === 401) {
-          return res.status(200).json({ 
+          return res.status(200).json({
             message: "Online payment temporarily unavailable. Redirecting to Cash on Delivery.",
             errorType: "auth_failed",
             fallbackOptions: ["cod"],
@@ -1667,18 +1689,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
             autoRedirectToCOD: true
           });
         }
-        
+
         // Handle other Razorpay errors
-        return res.status(500).json({ 
+        return res.status(500).json({
           message: "Payment gateway error. Please try Cash on Delivery.",
-          errorType: "razorpay_error", 
+          errorType: "razorpay_error",
           fallbackOptions: ["cod"],
           showCODOption: true
         });
       }
     } catch (error) {
       console.error("Error creating Razorpay order:", error);
-      res.status(500).json({ 
+      res.status(500).json({
         message: "Failed to create order. Please try Cash on Delivery.",
         errorType: "server_error",
         fallbackOptions: ["cod"],
@@ -1702,7 +1724,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
 
       const { productId, quantity, currency } = bodySchema.parse(req.body);
-      
+
       // Get product from database to ensure server-side price calculation
       const product = await (await getStorage()).getProduct(productId);
       if (!product) {
@@ -1711,14 +1733,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       // Calculate amount from server-side data, not client input
       const amount = parseFloat(product.price) * quantity;
-      
+
       console.log("Creating Stripe payment intent for:", {
         productId: product.id,
         productName: product.name,
         amount: amount,
         quantity: quantity
       });
-      
+
       try {
         const paymentIntent = await stripe.paymentIntents.create({
           amount: Math.round(amount * 100), // Stripe expects amount in smallest currency unit (paise for INR)
@@ -1732,9 +1754,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
             enabled: true,
           },
         });
-        
+
         console.log("Stripe payment intent created successfully:", paymentIntent.id);
-        
+
         // Return payment intent with product details for verification
         res.json({
           clientSecret: paymentIntent.client_secret,
@@ -1748,8 +1770,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       } catch (stripeError: any) {
         console.error('Stripe API Error:', stripeError);
-        
-        return res.status(500).json({ 
+
+        return res.status(500).json({
           message: "Payment processing error. Please try Cash on Delivery.",
           errorType: "stripe_error",
           fallbackOptions: ["cod"],
@@ -1758,7 +1780,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
     } catch (error) {
       console.error("Error creating Stripe payment intent:", error);
-      res.status(500).json({ 
+      res.status(500).json({
         message: "Failed to create payment. Please try Cash on Delivery.",
         errorType: "server_error",
         fallbackOptions: ["cod"],
@@ -1771,16 +1793,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       // First, check if Razorpay is properly configured
       if (!razorpay) {
-        return res.status(500).json({ 
+        return res.status(500).json({
           success: false,
-          message: "Payment gateway not configured. Please try a different payment method." 
+          message: "Payment gateway not configured. Please try a different payment method."
         });
       }
 
       // Validate request body with Zod and provide better error messages
       const bodySchema = z.object({
         razorpay_order_id: z.string().min(1, "Missing order ID from payment gateway"),
-        razorpay_payment_id: z.string().min(1, "Missing payment ID from payment gateway"), 
+        razorpay_payment_id: z.string().min(1, "Missing payment ID from payment gateway"),
         razorpay_signature: z.string().min(1, "Missing payment signature from payment gateway"),
         customerDetails: z.object({
           name: z.string(),
@@ -1806,9 +1828,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
 
       try {
-        var { 
-          razorpay_order_id, 
-          razorpay_payment_id, 
+        var {
+          razorpay_order_id,
+          razorpay_payment_id,
           razorpay_signature,
           customerDetails,
           productId,
@@ -1817,29 +1839,29 @@ export async function registerRoutes(app: Express): Promise<Server> {
       } catch (validationError: any) {
         console.error("Payment verification validation failed:", validationError);
         console.error("Raw request body:", req.body);
-        
+
         // Check if this is because payment fields are missing (order creation failed)
         const missingFields = validationError.issues?.map((issue: any) => issue.path[0]).filter(Boolean) || [];
-        const isPaymentFieldsMissing = ['razorpay_order_id', 'razorpay_payment_id', 'razorpay_signature'].some(field => 
+        const isPaymentFieldsMissing = ['razorpay_order_id', 'razorpay_payment_id', 'razorpay_signature'].some(field =>
           missingFields.includes(field)
         );
-        
+
         if (isPaymentFieldsMissing) {
-          return res.status(400).json({ 
+          return res.status(400).json({
             success: false,
             message: "Payment verification failed due to missing payment data. If money was debited, please contact support with your transaction details.",
             details: `Missing fields: ${missingFields.join(', ')}`,
             supportInfo: "Contact support with your payment confirmation and order details for assistance."
           });
         }
-        
-        return res.status(400).json({ 
+
+        return res.status(400).json({
           success: false,
           message: "Invalid payment data received",
           details: validationError.issues?.[0]?.message || "Please check your information and try again"
         });
       }
-      
+
       const sign = razorpay_order_id + "|" + razorpay_payment_id;
       const expectedSign = crypto
         .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET!)
@@ -1869,9 +1891,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
           // Calculate total from server-side data
           const serverTotal = parseFloat(product.price) * quantity;
-          
+
           const orderId = `ORDER_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-          
+
           // Create order in database with proper schema validation
           const orderToCreate = insertOrderSchema.parse({
             userId: dbUser.id,
@@ -1888,9 +1910,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
             razorpaySignature: razorpay_signature,
             paymentId: razorpay_payment_id
           });
-          
+
           const order = await (await getStorage()).createOrder(orderToCreate);
-          
+
           // Create order items from server-side data
           const orderItems = [{
             orderId: order.id,
@@ -1899,7 +1921,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             price: String(serverTotal)
           }];
           await (await getStorage()).addOrderItems(orderItems);
-          
+
           // Prepare order data for PHP emails
           const orderData = {
             orderId,
@@ -1922,7 +1944,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           try {
             const emailResult = await sendOrderSuccessEmail(orderData);
             logPHPEmailActivity('success', orderId, emailResult);
-            
+
             if (emailResult.success) {
               console.log('📧 Razorpay order confirmation emails sent via PHP bridge');
             } else {
@@ -1957,8 +1979,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
           }
 
           // Respond with success
-          res.json({ 
-            success: true, 
+          res.json({
+            success: true,
             message: "Payment verified and order created successfully",
             orderId: orderId,
             transactionId: razorpay_payment_id,
@@ -1970,26 +1992,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
               paymentStatus: 'paid'
             }
           });
-          
+
         } catch (orderError) {
           console.error('Error creating order:', orderError);
-          res.json({ 
-            success: true, 
+          res.json({
+            success: true,
             message: "Payment verified but order creation failed",
-            transactionId: razorpay_payment_id 
+            transactionId: razorpay_payment_id
           });
         }
       } else {
         console.log("Invalid payment signature received");
-        res.status(400).json({ 
-          success: false, 
+        res.status(400).json({
+          success: false,
           message: "Payment verification failed. The payment signature is invalid.",
           details: "This might be a security issue or payment gateway problem. Please try again."
         });
       }
     } catch (error: any) {
       console.error("Error verifying payment:", error);
-      res.status(500).json({ 
+      res.status(500).json({
         success: false,
         message: "Payment verification failed due to server error",
         details: error.message || "Please try again or contact support if the issue persists"
@@ -2031,8 +2053,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         })).optional()
       });
 
-      const { 
-        razorpay_payment_id, 
+      const {
+        razorpay_payment_id,
         customerDetails,
         productId,
         quantity,
@@ -2060,17 +2082,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
         // Handle cart order with multiple products
         // Use the total from frontend which includes all discounts and deals
         serverTotal = total;
-        
+
         for (const item of orderItems) {
           const product = await (await getStorage()).getProduct(item.productId);
           if (!product) {
             console.error(`Product not found during direct verification: ${item.productId}`);
             continue;
           }
-          
+
           // Use the discounted price from the frontend instead of original product price
           const actualItemPrice = item.price || parseFloat(product.price);
-          
+
           orderItems_array.push({
             orderId: '', // Will be set after order creation
             productId: product.id,
@@ -2111,27 +2133,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
         razorpaySignature: 'DIRECT_VERIFICATION', // Mark as direct verification
         paymentId: razorpay_payment_id
       });
-      
+
       const order = await (await getStorage()).createOrder(orderToCreate);
-      
+
       // Update order items with the correct order ID
       const finalOrderItems = orderItems_array.map(item => ({
         ...item,
         orderId: order.id
       }));
-      
+
       await (await getStorage()).addOrderItems(finalOrderItems);
 
       // Clear the authenticated user's cart after successful order creation
       await (await getStorage()).clearCart(dbUser.id);
 
       // Prepare order data for email notifications
-      const emailOrderItems = isCartOrder && orderItems ? 
+      const emailOrderItems = isCartOrder && orderItems ?
         orderItems.map(item => ({
           productName: `Product ${item.productId}`, // We'll get actual names in a real scenario
           quantity: item.quantity,
           price: serverTotal / orderItems.length // Approximate price
-        })) : 
+        })) :
         [{
           productName: `Product ${productId}`,
           quantity: quantity,
@@ -2155,7 +2177,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       try {
         const emailResult = await sendOrderSuccessEmail(orderData);
         logPHPEmailActivity('success', order.id, emailResult);
-        
+
         if (emailResult.success) {
           console.log('📧 Direct payment order confirmation emails sent via PHP bridge');
         } else {
@@ -2190,8 +2212,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       // Respond with success (use actual database order ID)
-      res.json({ 
-        success: true, 
+      res.json({
+        success: true,
         message: "Direct payment verified and order created successfully",
         orderId: order.id,
         transactionId: razorpay_payment_id,
@@ -2207,7 +2229,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
     } catch (error: any) {
       console.error("Error in direct payment verification:", error);
-      res.status(500).json({ 
+      res.status(500).json({
         success: false,
         message: "Direct payment verification failed due to server error",
         details: error.message || "Please contact support with your payment details"
@@ -2239,16 +2261,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
         quantity: z.number().min(1).optional().default(1)
       });
 
-      const { 
-        payment_intent_id, 
+      const {
+        payment_intent_id,
         customerDetails,
         productId,
         quantity
       } = bodySchema.parse(req.body);
-      
+
       // Verify payment intent with Stripe
       const paymentIntent = await stripe.paymentIntents.retrieve(payment_intent_id);
-      
+
       if (paymentIntent.status === 'succeeded') {
         // Payment verified successfully, now create order and send emails
         try {
@@ -2272,9 +2294,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
           // Calculate total from server-side data
           const serverTotal = parseFloat(product.price) * quantity;
-          
+
           const orderId = `ORDER_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-          
+
           // Create order in database
           const orderToCreate = insertOrderSchema.parse({
             userId: dbUser.id,
@@ -2289,9 +2311,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
             status: 'confirmed',
             paymentId: payment_intent_id
           });
-          
+
           const order = await (await getStorage()).createOrder(orderToCreate);
-          
+
           // Add order items
           const orderItems = [{
             orderId: order.id,
@@ -2299,9 +2321,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
             quantity: quantity,
             price: String(parseFloat(product.price))
           }];
-          
+
           await (await getStorage()).addOrderItems(orderItems);
-          
+
           console.log(`✅ Stripe order created successfully: ${order.id}`);
 
           // Send email notifications via PHP bridge
@@ -2325,7 +2347,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           try {
             const emailResult = await sendOrderSuccessEmail(emailOrderData);
             logPHPEmailActivity('success', order.id, emailResult);
-            
+
             if (emailResult.success) {
               console.log('📧 Stripe order confirmation emails sent via PHP bridge');
             } else {
@@ -2344,8 +2366,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
           }
 
           // Respond with success
-          res.json({ 
-            success: true, 
+          res.json({
+            success: true,
             message: "Payment verified and order created successfully",
             orderId: order.id,
             transactionId: payment_intent_id,
@@ -2357,13 +2379,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
               paymentMethod: 'Stripe Card Payment'
             }
           });
-          
+
         } catch (orderError) {
           console.error("Error creating order after Stripe payment:", orderError);
-          res.status(500).json({ 
-            success: false, 
+          res.status(500).json({
+            success: false,
             message: "Payment successful but failed to create order. Please contact support.",
-            transactionId: payment_intent_id 
+            transactionId: payment_intent_id
           });
         }
       } else {
@@ -2371,8 +2393,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
     } catch (error) {
       console.error("Error verifying Stripe payment:", error);
-      res.status(500).json({ 
-        success: false, 
+      res.status(500).json({
+        success: false,
         message: "Failed to verify payment and create order",
         error: error instanceof Error ? error.message : "Unknown error"
       });
@@ -2383,7 +2405,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/orders/cod", async (req, res) => {
     try {
       const { orderId, customerName, customerEmail, customerPhone, total, paymentStatus, paymentMethod, transactionId, shippingAddress, orderItems } = req.body;
-      
+
       // Validate required fields
       if (!orderId || !customerName || !customerEmail || !total) {
         return res.status(400).json({ success: false, message: "Missing required fields" });
@@ -2400,7 +2422,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (!dbUser) {
         return res.status(404).json({ success: false, message: "User not found" });
       }
-      
+
       // Create order data for PHP email (without orderItems)
       const emailOrderData = {
         orderId,
@@ -2417,15 +2439,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       // Extract order items from request
       const { orderItems: orderItemsData, ...orderDataForDb } = req.body;
-      
+
       // Create order in database
-      const orderToCreate = insertOrderSchema.parse({ 
-        ...orderDataForDb, 
+      const orderToCreate = insertOrderSchema.parse({
+        ...orderDataForDb,
         userId: dbUser.id,
         paymentStatus: paymentStatus || 'COD - Payment Pending'
       });
       const order = await (await getStorage()).createOrder(orderToCreate);
-      
+
       // Create order items if they exist
       if (orderItemsData && orderItemsData.length > 0) {
         const orderItems = orderItemsData.map((item: any) => ({
@@ -2473,7 +2495,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
 
         console.log('📧 COD order emails sent via PHP integration');
-        
+
       } catch (emailError) {
         console.error('Failed to send COD order emails via PHP:', emailError);
         // Don't fail the order if email fails
@@ -2521,7 +2543,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const contactData = insertContactInquirySchema.parse(req.body);
       const inquiry = await (await getStorage()).createContactInquiry(contactData);
-      
+
       // Send contact emails via PHP handler
       try {
         const phpEmailData = {
@@ -2572,7 +2594,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         console.error('❌ Contact email error:', emailError);
         // Don't fail the main request if email fails
       }
-      
+
       res.json(inquiry);
     } catch (error) {
       console.error("Error creating contact inquiry:", error);
@@ -2607,7 +2629,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const fs = await import('fs/promises');
       const path = await import('path');
       const uploadsDir = path.join(process.cwd(), 'public', 'uploads', 'reviews');
-      
+
       try {
         await fs.access(uploadsDir);
       } catch {
@@ -2620,7 +2642,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       for (const file of files) {
         const filename = `review_${Date.now()}_${Math.random().toString(36).substring(2, 15)}.${file.mimetype.split('/')[1]}`;
         const filepath = path.join(uploadsDir, filename);
-        
+
         await fs.writeFile(filepath, file.buffer);
         imageUrls.push(`/uploads/reviews/${filename}`);
       }
@@ -2628,7 +2650,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Store image metadata in JSON file for backup/reference
       const metadataFile = path.join(uploadsDir, 'images_metadata.json');
       let metadata = [];
-      
+
       try {
         const existingMetadata = await fs.readFile(metadataFile, 'utf-8');
         metadata = JSON.parse(existingMetadata);
@@ -2644,7 +2666,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
 
       await fs.writeFile(metadataFile, JSON.stringify(metadata, null, 2));
-      
+
       res.json({ imageUrls });
     } catch (error) {
       console.error("Error uploading review images:", error);
@@ -2655,24 +2677,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/products/:productId/reviews", async (req, res) => {
     try {
       const sessionUser = (req as any).session?.user;
-      
+
       // Require authentication for review submission
       if (!sessionUser || !sessionUser.email) {
         return res.status(401).json({ message: "Authentication required to submit reviews" });
       }
-      
+
       // Get user from database using email (consistent with other endpoints)
       const dbUser = await (await getStorage()).getUserByEmail(sessionUser.email);
       if (!dbUser) {
         return res.status(404).json({ message: "User not found" });
       }
-      
+
       const reviewData = insertProductReviewSchema.parse({
         ...req.body,
         productId: req.params.productId,
         userId: dbUser.id,
       });
-      
+
       const review = await (await getStorage()).createProductReview(reviewData);
       res.json(review);
     } catch (error) {
@@ -2699,24 +2721,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/products/:productId/questions", async (req, res) => {
     try {
       const sessionUser = (req as any).session?.user;
-      
+
       // Require authentication for question submission
       if (!sessionUser || !sessionUser.email) {
         return res.status(401).json({ message: "Authentication required to submit questions" });
       }
-      
+
       // Get user from database using email (consistent with other endpoints)
       const dbUser = await (await getStorage()).getUserByEmail(sessionUser.email);
       if (!dbUser) {
         return res.status(404).json({ message: "User not found" });
       }
-      
+
       const questionData = insertProductQuestionSchema.parse({
         ...req.body,
         productId: req.params.productId,
         userId: dbUser.id,
       });
-      
+
       const question = await (await getStorage()).createProductQuestion(questionData);
       res.json(question);
     } catch (error) {
@@ -2737,11 +2759,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
         ...questionData,
         answeredAt: questionData.answer ? new Date() : undefined
       });
-      
+
       if (!question) {
         return res.status(404).json({ message: "Question not found" });
       }
-      
+
       res.json(question);
     } catch (error) {
       console.error("Error updating product question:", error);

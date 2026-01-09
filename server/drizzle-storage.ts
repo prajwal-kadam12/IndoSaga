@@ -1,18 +1,19 @@
 import { eq, and, like, gte, lte, desc } from 'drizzle-orm';
 import { nanoid } from 'nanoid';
 import { db } from './db';
-import { 
-  users, 
-  categories, 
-  subcategories, 
-  products, 
-  cartItems, 
-  wishlistItems, 
-  orders, 
-  orderItems, 
-  contactInquiries, 
-  productReviews, 
-  productQuestions 
+import {
+  users,
+  categories,
+  subcategories,
+  products,
+  cartItems,
+  wishlistItems,
+  orders,
+  orderItems,
+  contactInquiries,
+  productReviews,
+  productQuestions,
+  payments
 } from '../shared/schema';
 import type { IStorage } from './storage';
 import type {
@@ -38,6 +39,8 @@ import type {
   InsertProductReview,
   ProductQuestion,
   InsertProductQuestion,
+  Payment,
+  InsertPayment,
 } from '../shared/schema';
 
 export class DrizzleStorage implements IStorage {
@@ -59,7 +62,7 @@ export class DrizzleStorage implements IStorage {
 
   async upsertUser(userData: UpsertUser): Promise<User> {
     const existingUser = await this.getUserByEmail(userData.email);
-    
+
     if (existingUser) {
       const result = await db
         .update(users)
@@ -343,7 +346,7 @@ export class DrizzleStorage implements IStorage {
 
   async getOrders(userId: string): Promise<(Order & { orderItems: (OrderItem & { product: Product })[] })[]> {
     const ordersResult = await db.select().from(orders).where(eq(orders.userId, userId));
-    
+
     const ordersWithItems = await Promise.all(
       ordersResult.map(async (order) => {
         const itemsResult = await db
@@ -488,6 +491,50 @@ export class DrizzleStorage implements IStorage {
       .update(productQuestions)
       .set(data)
       .where(eq(productQuestions.id, id))
+      .returning();
+    return result[0];
+  }
+
+  // Payment operations
+  async getPayments(filters?: { userId?: string; orderId?: string; status?: string }): Promise<Payment[]> {
+    const conditions = [];
+    if (filters?.userId) conditions.push(eq(payments.userId, filters.userId));
+    if (filters?.orderId) conditions.push(eq(payments.orderId, filters.orderId));
+    if (filters?.status) conditions.push(eq(payments.status, filters.status));
+
+    if (conditions.length > 0) {
+      return await db.select().from(payments).where(and(...conditions)).orderBy(desc(payments.createdAt));
+    }
+
+    return await db.select().from(payments).orderBy(desc(payments.createdAt));
+  }
+
+  async getPayment(id: string): Promise<Payment | undefined> {
+    const result = await db.select().from(payments).where(eq(payments.id, id)).limit(1);
+    return result[0];
+  }
+
+  async getPaymentByRazorpayOrderId(razorpayOrderId: string): Promise<Payment | undefined> {
+    const result = await db.select().from(payments).where(eq(payments.razorpayOrderId, razorpayOrderId)).limit(1);
+    return result[0];
+  }
+
+  async createPayment(payment: InsertPayment): Promise<Payment> {
+    const newPayment: Payment = {
+      id: nanoid(),
+      ...payment,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    const result = await db.insert(payments).values(newPayment).returning();
+    return result[0];
+  }
+
+  async updatePayment(id: string, data: Partial<Payment>): Promise<Payment | undefined> {
+    const result = await db
+      .update(payments)
+      .set({ ...data, updatedAt: new Date() })
+      .where(eq(payments.id, id))
       .returning();
     return result[0];
   }

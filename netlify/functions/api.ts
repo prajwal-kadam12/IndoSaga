@@ -6,6 +6,17 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Global error handler for Express in serverless environment
+app.use((err: any, _req: any, res: any, _next: any) => {
+    console.error("EXPRESS_ERROR:", err);
+    const status = err.status || err.statusCode || 500;
+    res.status(status).json({
+        message: err.message || "Internal Server Error",
+        error: err.toString(),
+        path: _req.path
+    });
+});
+
 let initialized = false;
 
 const serverlessHandler = serverless(app);
@@ -40,7 +51,8 @@ export const handler: any = async (event: any, context: any) => {
             body: JSON.stringify({
                 message: "Internal Server Error in Lambda",
                 error: error.message,
-                hint: "Check if DATABASE_URL and other environment variables are set in Netlify dashboard.",
+                hint: "Ensure DATABASE_URL is set in Netlify dashboard. If using Neon, use the 'Pooled connection string'.",
+                details: error.toString(),
                 stack: error.stack
             })
         };

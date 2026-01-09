@@ -68,5 +68,5 @@ class Database {
 }
 
 // Create and export a single instance
-const db = new Database();
+export const db = new Database();
 export default db;

@@ -203,13 +203,13 @@ console.log('Live Key Available:', !!process.env.RAZORPAY_KEY_ID);
 let keyId: string | undefined;
 let keySecret: string | undefined;
 
-if (process.env.RAZORPAY_TEST_KEY_ID && process.env.RAZORPAY_TEST_KEY_SECRET) {
+if (process.env.RAZORPAY_TEST_KEY_ID && (process.env.RAZORPAY_TEST_KEY_SECRET || process.env.RAZORPAY_SECRET)) {
   keyId = process.env.RAZORPAY_TEST_KEY_ID;
-  keySecret = process.env.RAZORPAY_TEST_KEY_SECRET;
+  keySecret = process.env.RAZORPAY_TEST_KEY_SECRET || process.env.RAZORPAY_SECRET;
   console.log('Using TEST credentials for Razorpay');
-} else if (process.env.RAZORPAY_KEY_ID && process.env.RAZORPAY_KEY_SECRET) {
+} else if (process.env.RAZORPAY_KEY_ID && (process.env.RAZORPAY_KEY_SECRET || process.env.RAZORPAY_SECRET)) {
   keyId = process.env.RAZORPAY_KEY_ID;
-  keySecret = process.env.RAZORPAY_KEY_SECRET;
+  keySecret = process.env.RAZORPAY_KEY_SECRET || process.env.RAZORPAY_SECRET;
   console.log('Using LIVE credentials for Razorpay');
 }
 
@@ -1258,7 +1258,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // POST new order (supports both authenticated and COD guest checkout)
-  app.post("/api/orders", async (req, res) => {
+  app.post(["/api/orders", "/api/orders/checkout"], async (req, res) => {
     const user = (req as any).session?.user;
     const { orderItems: orderItemsData, paymentMethod, ...orderData } = req.body;
 
@@ -1895,7 +1895,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       const sign = razorpay_order_id + "|" + razorpay_payment_id;
       const expectedSign = crypto
-        .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET!)
+        .createHmac("sha256", keySecret!)
         .update(sign.toString())
         .digest("hex");
 

@@ -1,6 +1,6 @@
 // Auth0 configuration using environment variables
-const domain = import.meta.env.VITE_AUTH0_DOMAIN || 'dev-xi31sc33g5dzke7b.us.auth0.com';
-const clientId = import.meta.env.VITE_AUTH0_CLIENT_ID || 'PjevU1GrQZxrQtSxA1osNDAWVvDkxg4R';
+const domain = import.meta.env.VITE_AUTH0_DOMAIN || 'dev-adj6k3nczttyxyiu.us.auth0.com';
+const clientId = import.meta.env.VITE_AUTH0_CLIENT_ID || 'stN0V6KgdkfdQyyaUeUUL0zU5VCkYbzF';
 
 export const auth0Config = {
   domain,
@@ -12,8 +12,8 @@ export const auth0Config = {
 
 // Check if Auth0 is properly configured
 export const isAuth0Configured = () => {
-  return auth0Config.domain && 
-         auth0Config.clientId &&
-         auth0Config.domain !== '' && 
-         auth0Config.clientId !== '';
+  return auth0Config.domain &&
+    auth0Config.clientId &&
+    auth0Config.domain !== '' &&
+    auth0Config.clientId !== '';
 };

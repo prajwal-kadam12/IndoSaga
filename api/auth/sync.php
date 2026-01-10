@@ -43,7 +43,7 @@ try {
     }
     
     // Verify issuer matches your Auth0 domain
-    $expectedIssuer = 'https://dev-xi31sc33g5dzke7b.us.auth0.com/';
+    $expectedIssuer = 'https://dev-adj6k3nczttyxyiu.us.auth0.com/';
     if ($user['iss'] !== $expectedIssuer) {
         http_response_code(401);
         echo json_encode(['message' => 'Invalid token issuer']);

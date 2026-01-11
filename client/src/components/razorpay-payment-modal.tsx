@@ -3,13 +3,13 @@ import { createPortal } from 'react-dom';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { 
-  CreditCard, 
-  Smartphone, 
-  Building, 
-  Truck, 
-  X, 
-  CheckCircle, 
+import {
+  CreditCard,
+  Smartphone,
+  Building,
+  Truck,
+  X,
+  CheckCircle,
   Loader2,
   QrCode,
   Banknote
@@ -66,7 +66,7 @@ export default function RazorpayPaymentModal({
         const response = await fetch('/api/payment/config');
         const config = await response.json();
         setRazorpayConfig(config);
-        
+
         // Load Razorpay script if not already loaded and enabled
         if (config.enabled && !window.Razorpay) {
           const script = document.createElement('script');
@@ -137,7 +137,7 @@ export default function RazorpayPaymentModal({
 
       if (!response.ok) {
         const errorData = await response.json();
-        
+
         // If it's a Razorpay authentication error, show COD option
         if (errorData.showCODOption) {
           toast({
@@ -148,7 +148,7 @@ export default function RazorpayPaymentModal({
           // Don't throw error, let user see COD option
           return;
         }
-        
+
         throw new Error(errorData.message || 'Failed to create payment order');
       }
 
@@ -185,7 +185,7 @@ export default function RazorpayPaymentModal({
           handlePaymentSuccess(response);
         },
         modal: {
-          ondismiss: function() {
+          ondismiss: function () {
             setLoading(false);
             setIsCheckoutOpen(false); // Restore our modal visibility
             console.log('Payment modal dismissed');
@@ -197,14 +197,14 @@ export default function RazorpayPaymentModal({
       };
 
       const rzp = new window.Razorpay(options);
-      
+
       // Hide our modal before opening Razorpay to prevent z-index conflicts
       setIsCheckoutOpen(true);
       rzp.open();
 
     } catch (error) {
       console.error('Razorpay payment failed:', error);
-      
+
       // Extract meaningful error message
       let errorMessage = "Unable to initialize payment. Please try again.";
       if (error instanceof Error) {
@@ -214,7 +214,7 @@ export default function RazorpayPaymentModal({
       } else if (error && typeof error === 'object' && 'message' in error) {
         errorMessage = String(error.message);
       }
-      
+
       toast({
         title: "Payment Failed",
         description: errorMessage,
@@ -228,15 +228,15 @@ export default function RazorpayPaymentModal({
   const handlePaymentSuccess = async (response: any) => {
     try {
       console.log('Payment success response from Razorpay:', response);
-      
+
       // Check if this is a complete response with order verification data
       const hasCompleteData = response.razorpay_order_id && response.razorpay_payment_id && response.razorpay_signature;
-      
+
       // If we have payment_id but missing order data, it means server-side order creation failed
       // but payment succeeded. Handle this as a direct payment verification.
       if (!hasCompleteData && response.razorpay_payment_id) {
         console.log('Payment succeeded but order creation failed on server. Using direct payment verification...');
-        
+
         // Use direct payment verification endpoint
         const directVerifyResponse = await fetch('/api/verify-direct-payment', {
           method: 'POST',
@@ -261,7 +261,7 @@ export default function RazorpayPaymentModal({
             title: "Payment Successful!",
             description: `Order ${directResult.orderId} created successfully. Confirmation emails have been sent.`,
           });
-          
+
           // Close modal and navigate to success page
           onClose();
           window.location.href = `/order-success?orderId=${directResult.orderId}`;
@@ -270,13 +270,13 @@ export default function RazorpayPaymentModal({
           throw new Error(directResult.message || 'Payment verification failed');
         }
       }
-      
+
       // If we don't have payment_id at all, it's a complete failure
       if (!response.razorpay_payment_id) {
         console.error('No payment ID received from Razorpay');
         throw new Error('Payment data is completely missing. Please contact support.');
       }
-      
+
       // If we have incomplete data but no payment_id, show error
       if (!hasCompleteData) {
         console.error('Missing required payment fields in Razorpay response:', {
@@ -284,10 +284,10 @@ export default function RazorpayPaymentModal({
           payment_id: !!response.razorpay_payment_id,
           signature: !!response.razorpay_signature
         });
-        
+
         throw new Error('Payment completed but verification data is incomplete. Please contact support with your payment details.');
       }
-      
+
       // Verify payment with backend
       const verifyResponse = await fetch('/api/verify-razorpay-payment', {
         method: 'POST',
@@ -313,7 +313,7 @@ export default function RazorpayPaymentModal({
           title: "Payment Successful!",
           description: `Order ${result.orderId} created successfully. Confirmation emails have been sent.`,
         });
-        
+
         // Close modal and navigate to success page
         onClose();
         window.location.href = `/order-success?orderId=${result.orderId}`;
@@ -343,9 +343,9 @@ export default function RazorpayPaymentModal({
         <CardHeader>
           {/* Website Branding Header */}
           <div className="flex items-center mb-4 pb-4 border-b border-gray-200">
-            <img 
-              src="/images/indosaga-logo.png" 
-              alt="IndoSaga Furniture" 
+            <img
+              src="/images/indosaga-logo.png"
+              alt="IndoSaga Furniture"
               className="h-12 w-12 mr-3 rounded-lg"
             />
             <div className="flex-1">
@@ -356,7 +356,7 @@ export default function RazorpayPaymentModal({
               <X className="h-4 w-4" />
             </Button>
           </div>
-          
+
           <CardTitle className="text-center">
             Choose Payment Method
           </CardTitle>
@@ -367,84 +367,76 @@ export default function RazorpayPaymentModal({
         <CardContent>
           <div className="space-y-3">
             {/* UPI Payment */}
-            {razorpayConfig?.enabled && (
-              <Button
-                onClick={() => handleMethodSelect('upi')}
-                disabled={loading}
-                className="w-full h-16 justify-start space-x-4 bg-gradient-to-r from-purple-50 to-indigo-50 hover:from-purple-100 hover:to-indigo-100 text-gray-800 border border-purple-200"
-                variant="outline"
-              >
-                {loading && selectedMethod === 'upi' ? (
-                  <Loader2 className="h-6 w-6 animate-spin" />
-                ) : (
-                  <QrCode className="h-6 w-6 text-purple-600" />
-                )}
-                <div className="text-left">
-                  <div className="font-semibold">UPI Payment</div>
-                  <div className="text-xs text-gray-600">Pay via UPI apps like GPay, PhonePe, Paytm</div>
-                </div>
-              </Button>
-            )}
+            <Button
+              onClick={() => handleMethodSelect('upi')}
+              disabled={loading}
+              className="w-full h-16 justify-start space-x-4 bg-gradient-to-r from-purple-50 to-indigo-50 hover:from-purple-100 hover:to-indigo-100 text-gray-800 border border-purple-200"
+              variant="outline"
+            >
+              {loading && selectedMethod === 'upi' ? (
+                <Loader2 className="h-6 w-6 animate-spin" />
+              ) : (
+                <QrCode className="h-6 w-6 text-purple-600" />
+              )}
+              <div className="text-left">
+                <div className="font-semibold">UPI Payment</div>
+                <div className="text-xs text-gray-600">Pay via UPI apps like GPay, PhonePe, Paytm</div>
+              </div>
+            </Button>
 
             {/* Credit/Debit Cards */}
-            {razorpayConfig?.enabled && (
-              <Button
-                onClick={() => handleMethodSelect('card')}
-                disabled={loading}
-                className="w-full h-16 justify-start space-x-4 bg-gradient-to-r from-blue-50 to-cyan-50 hover:from-blue-100 hover:to-cyan-100 text-gray-800 border border-blue-200"
-                variant="outline"
-              >
-                {loading && selectedMethod === 'card' ? (
-                  <Loader2 className="h-6 w-6 animate-spin" />
-                ) : (
-                  <CreditCard className="h-6 w-6 text-blue-600" />
-                )}
-                <div className="text-left">
-                  <div className="font-semibold">Credit / Debit Card</div>
-                  <div className="text-xs text-gray-600">Visa, MasterCard, RuPay, AMEX</div>
-                </div>
-              </Button>
-            )}
+            <Button
+              onClick={() => handleMethodSelect('card')}
+              disabled={loading}
+              className="w-full h-16 justify-start space-x-4 bg-gradient-to-r from-blue-50 to-cyan-50 hover:from-blue-100 hover:to-cyan-100 text-gray-800 border border-blue-200"
+              variant="outline"
+            >
+              {loading && selectedMethod === 'card' ? (
+                <Loader2 className="h-6 w-6 animate-spin" />
+              ) : (
+                <CreditCard className="h-6 w-6 text-blue-600" />
+              )}
+              <div className="text-left">
+                <div className="font-semibold">Credit / Debit Card</div>
+                <div className="text-xs text-gray-600">Visa, MasterCard, RuPay, AMEX</div>
+              </div>
+            </Button>
 
             {/* Net Banking */}
-            {razorpayConfig?.enabled && (
-              <Button
-                onClick={() => handleMethodSelect('netbanking')}
-                disabled={loading}
-                className="w-full h-16 justify-start space-x-4 bg-gradient-to-r from-green-50 to-emerald-50 hover:from-green-100 hover:to-emerald-100 text-gray-800 border border-green-200"
-                variant="outline"
-              >
-                {loading && selectedMethod === 'netbanking' ? (
-                  <Loader2 className="h-6 w-6 animate-spin" />
-                ) : (
-                  <Building className="h-6 w-6 text-green-600" />
-                )}
-                <div className="text-left">
-                  <div className="font-semibold">Net Banking</div>
-                  <div className="text-xs text-gray-600">All major banks supported</div>
-                </div>
-              </Button>
-            )}
+            <Button
+              onClick={() => handleMethodSelect('netbanking')}
+              disabled={loading}
+              className="w-full h-16 justify-start space-x-4 bg-gradient-to-r from-green-50 to-emerald-50 hover:from-green-100 hover:to-emerald-100 text-gray-800 border border-green-200"
+              variant="outline"
+            >
+              {loading && selectedMethod === 'netbanking' ? (
+                <Loader2 className="h-6 w-6 animate-spin" />
+              ) : (
+                <Building className="h-6 w-6 text-green-600" />
+              )}
+              <div className="text-left">
+                <div className="font-semibold">Net Banking</div>
+                <div className="text-xs text-gray-600">All major banks supported</div>
+              </div>
+            </Button>
 
             {/* Wallet */}
-            {razorpayConfig?.enabled && (
-              <Button
-                onClick={() => handleMethodSelect('wallet')}
-                disabled={loading}
-                className="w-full h-16 justify-start space-x-4 bg-gradient-to-r from-orange-50 to-red-50 hover:from-orange-100 hover:to-red-100 text-gray-800 border border-orange-200"
-                variant="outline"
-              >
-                {loading && selectedMethod === 'wallet' ? (
-                  <Loader2 className="h-6 w-6 animate-spin" />
-                ) : (
-                  <Banknote className="h-6 w-6 text-orange-600" />
-                )}
-                <div className="text-left">
-                  <div className="font-semibold">Digital Wallets</div>
-                  <div className="text-xs text-gray-600">Paytm, Mobikwik, FreeCharge, etc.</div>
-                </div>
-              </Button>
-            )}
+            <Button
+              onClick={() => handleMethodSelect('wallet')}
+              disabled={loading}
+              className="w-full h-16 justify-start space-x-4 bg-gradient-to-r from-orange-50 to-red-50 hover:from-orange-100 hover:to-red-100 text-gray-800 border border-orange-200"
+              variant="outline"
+            >
+              {loading && selectedMethod === 'wallet' ? (
+                <Loader2 className="h-6 w-6 animate-spin" />
+              ) : (
+                <Banknote className="h-6 w-6 text-orange-600" />
+              )}
+              <div className="text-left">
+                <div className="font-semibold">Digital Wallets</div>
+                <div className="text-xs text-gray-600">Paytm, Mobikwik, FreeCharge, etc.</div>
+              </div>
+            </Button>
 
             {/* Cash on Delivery */}
             <Button
@@ -465,10 +457,10 @@ export default function RazorpayPaymentModal({
             </Button>
           </div>
 
-          {!razorpayConfig?.enabled && (
-            <div className="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
-              <p className="text-sm text-yellow-800">
-                Online payment methods are currently unavailable. Please use Cash on Delivery.
+          {!razorpayConfig?.enabled && razorpayConfig !== null && (
+            <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+              <p className="text-sm text-blue-800">
+                Checking payment gateway status...
               </p>
             </div>
           )}

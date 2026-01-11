@@ -163,11 +163,11 @@ export default function Profile() {
   const handleProfileImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      // Check file size (limit to 5MB)
-      if (file.size > 5 * 1024 * 1024) {
+      // Check file size (limit to 3MB for Netlify/Lambda 6MB payload limit safety)
+      if (file.size > 3 * 1024 * 1024) {
         toast({
           title: "File too large",
-          description: "Please select an image smaller than 5MB.",
+          description: "Please select an image smaller than 3MB.",
           variant: "destructive"
         });
         return;

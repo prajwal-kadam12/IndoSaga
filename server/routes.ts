@@ -654,7 +654,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(401).json({ message: "Not authenticated" });
       }
 
-      const { name, email, phone, address } = req.body;
+      const { name, email, phone, address, profileImageUrl } = req.body;
 
       // Update user in database
       await (await getStorage()).upsertUser({
@@ -664,7 +664,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         address: address || '',
         firstName: user.given_name || '',
         lastName: user.family_name || '',
-        profileImageUrl: user.picture || '',
+        profileImageUrl: profileImageUrl || user.picture || user.profileImageUrl || '',
         provider: user.provider || 'auth0'
       });
 
@@ -674,7 +674,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         name: name || user.name,
         email: email || user.email,
         phone: phone || '',
-        address: address || ''
+        address: address || '',
+        profileImageUrl: profileImageUrl || user.picture || user.profileImageUrl || ''
       };
 
       res.json({

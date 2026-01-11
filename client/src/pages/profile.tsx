@@ -95,7 +95,8 @@ export default function Profile() {
         name: data.name,
         email: data.email,
         phone: data.phone,
-        address: data.address
+        address: data.address,
+        profileImageUrl: data.profileImage
       });
 
       return response.json();

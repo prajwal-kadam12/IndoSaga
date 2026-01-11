@@ -2597,55 +2597,55 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const contactData = insertContactInquirySchema.parse(req.body);
       const inquiry = await (await getStorage()).createContactInquiry(contactData);
 
-      // Send contact emails via PHP handler
+      // Send email using Node.js directly (Netlify compatible)
       try {
-        const phpEmailData = {
-          name: `${contactData.firstName} ${contactData.lastName}`,
-          email: contactData.email,
-          phone: contactData.phone || '',
-          company: '', // No company field in contact form
-          subject: contactData.inquiryType,
-          message: contactData.message,
-          category: contactData.inquiryType
-        };
+        const transporter = createEmailTransporter();
 
-        // Execute PHP script directly
-        const { spawn } = await import('child_process');
-        const php = spawn('php', ['php/handlers/contact_us.php'], {
-          stdio: ['pipe', 'pipe', 'pipe']
+        // Email to Admin
+        await transporter.sendMail({
+          from: `"${contactData.firstName} ${contactData.lastName}" <${process.env.SMTP_USERNAME}>`, // Send via authenticated user
+          replyTo: contactData.email,
+          to: process.env.ADMIN_EMAIL || process.env.SMTP_USERNAME,
+          subject: `New Inquiry: ${contactData.inquiryType} - ${contactData.firstName} ${contactData.lastName}`,
+          html: `
+            <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
+              <h2 style="color: #8B4513;">New Contact Inquiry</h2>
+              <p><strong>Name:</strong> ${contactData.firstName} ${contactData.lastName}</p>
+              <p><strong>Email:</strong> ${contactData.email}</p>
+              <p><strong>Phone:</strong> ${contactData.phone || 'Not provided'}</p>
+              <p><strong>Type:</strong> ${contactData.inquiryType}</p>
+              <div style="background-color: #f9f9f9; padding: 15px; border-left: 4px solid #8B4513; margin: 20px 0;">
+                <p><strong>Message:</strong></p>
+                <p style="white-space: pre-wrap;">${contactData.message}</p>
+              </div>
+              <p style="font-size: 12px; color: #666;">Received via IndoSaga Website</p>
+            </div>
+          `
         });
 
-        // Send JSON data to PHP script
-        php.stdin.write(JSON.stringify(phpEmailData));
-        php.stdin.end();
-
-        let output = '';
-        let errorOutput = '';
-
-        php.stdout.on('data', (data) => {
-          output += data.toString();
+        // Auto-reply to User
+        await transporter.sendMail({
+          from: `"IndoSaga Furniture" <${process.env.SMTP_USERNAME}>`,
+          to: contactData.email,
+          subject: "We received your inquiry - IndoSaga Furniture",
+          html: `
+            <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
+              <h2 style="color: #8B4513;">Thank you for contacting us!</h2>
+              <p>Dear ${contactData.firstName},</p>
+              <p>We have received your message regarding "<strong>${contactData.inquiryType}</strong>".</p>
+              <p>Our team will review your inquiry and get back to you shortly.</p>
+              <br>
+              <p>Best regards,</p>
+              <p><strong>IndoSaga Furniture Team</strong></p>
+            </div>
+          `
         });
 
-        php.stderr.on('data', (data) => {
-          errorOutput += data.toString();
-        });
-
-        php.on('close', (code) => {
-          if (code === 0 && output) {
-            try {
-              const emailResult = JSON.parse(output);
-              console.log('📧 Contact emails sent successfully:', emailResult);
-            } catch (parseError) {
-              console.log('📧 Contact emails processed:', output);
-            }
-          } else {
-            console.error('❌ Contact email sending failed:', errorOutput || output);
-          }
-        });
+        console.log('✅ Contact emails sent successfully via Nodemailer');
 
       } catch (emailError) {
         console.error('❌ Contact email error:', emailError);
-        // Don't fail the main request if email fails
+        // Don't fail the main request if email fails, but log it
       }
 
       res.json(inquiry);

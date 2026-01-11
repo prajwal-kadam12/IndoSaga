@@ -392,12 +392,15 @@ async function findSimilarProductsByImage(imageBuffer: Buffer) {
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Trust proxy is required for secure cookies on Netlify/Serverless
+  app.set("trust proxy", 1);
+
   // Implement persistent database session storage for Netlify/Serverless stability
   const PostgresStore = connectPg(session);
   const sessionStore = new PostgresStore({
     conString: process.env.DATABASE_URL,
     tableName: 'sessions', // Must match neondb_setup.sql
-    createTableIfMissing: false
+    createTableIfMissing: true // Resilience if SQL setup was skipped
   });
 
   app.use(session({
@@ -406,6 +409,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     resave: false,
     saveUninitialized: false,
     name: 'indosaga.sid',
+    proxy: true, // Tell express-session to trust the reverse proxy
     cookie: {
       secure: process.env.NODE_ENV === "production",
       httpOnly: true,

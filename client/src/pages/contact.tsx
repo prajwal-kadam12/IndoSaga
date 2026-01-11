@@ -39,7 +39,28 @@ export default function Contact() {
       });
     },
     onError: (error: Error) => {
-      const errorMessage = error.message;
+      let errorMessage = error.message;
+
+      // Try to parse JSON error message if it comes from the API
+      // The apiRequest throws "Status: JSON_STRING"
+      try {
+        const jsonPart = errorMessage.includes(':')
+          ? errorMessage.split(':').slice(1).join(':').trim()
+          : errorMessage;
+
+        const parsed = JSON.parse(jsonPart);
+        if (parsed.message) {
+          errorMessage = parsed.message;
+        }
+        if (parsed.error) {
+          // Append technical details if available
+          errorMessage += ` (${parsed.error})`;
+        }
+      } catch (e) {
+        // Fallback to raw message if parsing fails
+        console.error("Failed to parse error message:", e);
+      }
+
       toast({
         title: "Error sending inquiry",
         description: errorMessage || "Please try again or contact us directly.",

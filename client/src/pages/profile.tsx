@@ -37,13 +37,13 @@ export default function Profile() {
   const [trackingOrder, setTrackingOrder] = useState<any>(null);
   const [cancellationOrder, setCancellationOrder] = useState<any>(null);
   const [editForm, setEditForm] = useState({
-    name: "John Doe",
-    email: "john.doe@email.com",
-    phone: "+91 98765 43210",
-    address: "123 Home Street, Mumbai, Maharashtra 400001",
+    name: "",
+    email: "",
+    phone: "",
+    address: "",
     profileImage: ""
   });
-  
+
   const [profileImageFile, setProfileImageFile] = useState<File | null>(null);
   const [profileImagePreview, setProfileImagePreview] = useState<string | null>(null);
 
@@ -73,15 +73,20 @@ export default function Profile() {
     queryKey: ["/api/auth/me"],
     retry: false,
   });
-  
+
   // Use real user data from Auth0
   const currentUser = {
-    name: user ? ((user as any).name || `${(user as any).given_name || ''} ${(user as any).family_name || ''}`.trim() || 'User') : "User",
+    name: user ? (
+      (user as any).name ||
+      (`${(user as any).given_name || ''} ${(user as any).family_name || ''}`.trim()) ||
+      (user as any).email?.split('@')[0] ||
+      'User'
+    ) : "User",
     email: (user as any)?.email || "",
-    phone: (user as any)?.phone || "", // Will be populated from profile update
-    address: (user as any)?.address || "", // Will be populated from profile update
-    joinDate: "Recently",
-    profileImage: (user as any)?.picture
+    phone: (user as any)?.phone || "",
+    address: (user as any)?.address || "",
+    joinDate: (user as any)?.createdAt ? new Date((user as any).createdAt).toLocaleDateString('en-IN', { month: 'long', year: 'numeric' }) : "Recently",
+    profileImage: (user as any)?.profileImageUrl || (user as any)?.picture
   };
 
   const updateProfileMutation = useMutation({
@@ -92,7 +97,7 @@ export default function Profile() {
         phone: data.phone,
         address: data.address
       });
-      
+
       return response.json();
     },
     onSuccess: (updatedUser) => {
@@ -153,7 +158,7 @@ export default function Profile() {
   const handleInputChange = (field: keyof typeof editForm, value: string) => {
     setEditForm(prev => ({ ...prev, [field]: value }));
   };
-  
+
   const handleProfileImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -166,7 +171,7 @@ export default function Profile() {
         });
         return;
       }
-      
+
       // Check file type
       if (!file.type.startsWith('image/')) {
         toast({
@@ -176,9 +181,9 @@ export default function Profile() {
         });
         return;
       }
-      
+
       setProfileImageFile(file);
-      
+
       // Create preview URL
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -192,7 +197,7 @@ export default function Profile() {
       reader.readAsDataURL(file);
     }
   };
-  
+
   const removeProfileImage = () => {
     setProfileImageFile(null);
     setProfileImagePreview(null);
@@ -202,9 +207,9 @@ export default function Profile() {
     }));
   };
 
-  
+
   const { logout } = useAuth0();
-  
+
   const handleLogout = async () => {
     try {
       // Show immediate feedback
@@ -215,11 +220,11 @@ export default function Profile() {
 
       // First clear all React Query cache immediately
       queryClient.clear();
-      
+
       // Force invalidate specific auth queries
       queryClient.invalidateQueries({ queryKey: ["/api/auth/me"] });
       queryClient.removeQueries({ queryKey: ["/api/auth/me"] });
-      
+
       // Clear the server session using API
       await fetch('/api/auth/logout', {
         method: 'POST',
@@ -228,21 +233,21 @@ export default function Profile() {
           'Content-Type': 'application/json',
         }
       });
-      
+
       // Clear localStorage data
       localStorage.removeItem('localCart');
       localStorage.removeItem('localWishlist');
-      
+
       // Force reload to ensure all components refresh
       setTimeout(() => {
         // Then clear Auth0 session and redirect
-        logout({ 
+        logout({
           logoutParams: {
             returnTo: window.location.origin
           }
         });
       }, 100);
-      
+
     } catch (error) {
       console.error('Logout error:', error);
       // If server logout fails, still clear everything
@@ -251,8 +256,8 @@ export default function Profile() {
       queryClient.removeQueries({ queryKey: ["/api/auth/me"] });
       localStorage.removeItem('localCart');
       localStorage.removeItem('localWishlist');
-      
-      logout({ 
+
+      logout({
         logoutParams: {
           returnTo: window.location.origin
         }
@@ -291,7 +296,7 @@ export default function Profile() {
     setCancellationOrder(order);
     setShowCancellation(true);
   };
-  
+
   const handleCancellationComplete = () => {
     // Refresh orders after cancellation
     queryClient.invalidateQueries({ queryKey: ["/api/orders"] });
@@ -324,15 +329,15 @@ export default function Profile() {
                 <div className="text-center mb-6">
                   <div className="w-20 h-20 wood-texture rounded-full mx-auto mb-4 flex items-center justify-center overflow-hidden relative">
                     {(isEditing ? profileImagePreview : currentUser.profileImage) ? (
-                      <img 
-                        src={isEditing ? profileImagePreview! : currentUser.profileImage} 
-                        alt="Profile" 
-                        className="w-full h-full object-cover" 
+                      <img
+                        src={isEditing ? profileImagePreview! : currentUser.profileImage}
+                        alt="Profile"
+                        className="w-full h-full object-cover"
                       />
                     ) : (
                       <User className="h-8 w-8 text-white" />
                     )}
-                    
+
                     {/* Profile Picture Upload Options - Only show when editing */}
                     {isEditing && (
                       <div className="absolute -bottom-2 -right-2 flex space-x-1">
@@ -348,7 +353,7 @@ export default function Profile() {
                             <ImageIcon className="w-4 h-4" />
                           </div>
                         </label>
-                        
+
                         {/* Camera Upload */}
                         <label className="cursor-pointer">
                           <input
@@ -362,7 +367,7 @@ export default function Profile() {
                             <Camera className="w-4 h-4" />
                           </div>
                         </label>
-                        
+
                         {/* Remove Image */}
                         {(profileImagePreview || currentUser.profileImage) && (
                           <button
@@ -375,7 +380,7 @@ export default function Profile() {
                       </div>
                     )}
                   </div>
-                  
+
                   {/* Upload Instructions - Only show when editing and no image */}
                   {isEditing && !profileImagePreview && !currentUser.profileImage && (
                     <p className="text-xs text-gray-500 mb-2">
@@ -390,7 +395,7 @@ export default function Profile() {
                     <p className="text-sm text-gray-500">Signed in with {(user as any).provider.charAt(0).toUpperCase() + (user as any).provider.slice(1)}</p>
                   )}
                 </div>
-                
+
                 {isEditing ? (
                   <div className="space-y-4">
                     <div>
@@ -462,10 +467,10 @@ export default function Profile() {
                     </div>
                   </div>
                 )}
-                
+
                 {isEditing ? (
                   <div className="flex space-x-2">
-                    <Button 
+                    <Button
                       onClick={handleSave}
                       disabled={updateProfileMutation.isPending}
                       className="flex-1 bg-primary hover:bg-primary/90 text-white"
@@ -483,7 +488,7 @@ export default function Profile() {
                         </>
                       )}
                     </Button>
-                    <Button 
+                    <Button
                       onClick={handleCancel}
                       variant="outline"
                       disabled={updateProfileMutation.isPending}
@@ -494,9 +499,9 @@ export default function Profile() {
                     </Button>
                   </div>
                 ) : (
-                  <Button 
+                  <Button
                     onClick={handleEditClick}
-                    variant="outline" 
+                    variant="outline"
                     className="w-full border-primary text-primary hover:bg-primary hover:text-white transition-colors"
                     data-testid="button-edit-profile"
                   >
@@ -514,8 +519,8 @@ export default function Profile() {
               </CardHeader>
               <CardContent className="space-y-3">
                 <Link href="/wishlist">
-                  <Button 
-                    variant="ghost" 
+                  <Button
+                    variant="ghost"
                     className="w-full justify-start text-darkBrown hover:bg-primary hover:text-white transition-all duration-200"
                     data-testid="button-view-wishlist"
                   >
@@ -524,8 +529,8 @@ export default function Profile() {
                   </Button>
                 </Link>
                 <Link href="/cart">
-                  <Button 
-                    variant="ghost" 
+                  <Button
+                    variant="ghost"
                     className="w-full justify-start text-darkBrown hover:bg-primary hover:text-white transition-all duration-200"
                     data-testid="button-view-cart"
                   >
@@ -533,14 +538,14 @@ export default function Profile() {
                     View Cart
                   </Button>
                 </Link>
-                <Button 
+                <Button
                   onClick={() => {
                     const ordersSection = document.getElementById('orders-section');
                     if (ordersSection) {
                       ordersSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }
                   }}
-                  variant="ghost" 
+                  variant="ghost"
                   className="w-full justify-start text-darkBrown hover:bg-primary hover:text-white transition-all duration-200"
                   data-testid="button-view-order-history"
                 >
@@ -548,8 +553,8 @@ export default function Profile() {
                   View Order History
                 </Button>
                 <Link href="/contact">
-                  <Button 
-                    variant="ghost" 
+                  <Button
+                    variant="ghost"
                     className="w-full justify-start text-darkBrown hover:bg-primary hover:text-white transition-all duration-200"
                     data-testid="button-contact-support"
                   >
@@ -557,9 +562,9 @@ export default function Profile() {
                     Contact Support
                   </Button>
                 </Link>
-                <Button 
+                <Button
                   onClick={handleLogout}
-                  variant="ghost" 
+                  variant="ghost"
                   className="w-full justify-start text-red-600 hover:bg-red-600 hover:text-white transition-all duration-200"
                   data-testid="button-logout"
                 >
@@ -620,11 +625,11 @@ export default function Profile() {
                                 {(order.status || 'pending').charAt(0).toUpperCase() + (order.status || 'pending').slice(1)}
                               </Badge>
                             </div>
-                            
+
                             <p className="text-gray-600 mb-2" data-testid={`order-items-${order.id}`}>
                               {order.orderItems?.length || 0} items - ₹{order.total}
                             </p>
-                            
+
                             <p className="text-sm text-gray-500" data-testid={`order-date-${order.id}`}>
                               Placed on {order.createdAt ? new Date(order.createdAt).toLocaleDateString('en-IN', {
                                 day: 'numeric',
@@ -637,8 +642,8 @@ export default function Profile() {
                               <div className="mt-3">
                                 <div className="flex flex-wrap gap-3">
                                   {order.orderItems.slice(0, 3).map((item: any, index: number) => (
-                                    <div 
-                                      key={index} 
+                                    <div
+                                      key={index}
                                       className="flex items-center space-x-3 bg-white rounded-lg p-3 shadow-sm border border-gray-100 cursor-pointer hover:shadow-md hover:border-primary/30 transition-all duration-200"
                                       onClick={() => {
                                         if (item.productId) {
@@ -650,8 +655,8 @@ export default function Profile() {
                                       {/* Product Image */}
                                       <div className="w-12 h-12 rounded-lg overflow-hidden bg-gray-100 flex-shrink-0">
                                         {item.product?.imageUrl ? (
-                                          <img 
-                                            src={item.product.imageUrl} 
+                                          <img
+                                            src={item.product.imageUrl}
                                             alt={item.product?.name || "Product"}
                                             className="w-full h-full object-cover"
                                             data-testid={`order-product-image-${order.id}-${index}`}
@@ -662,7 +667,7 @@ export default function Profile() {
                                           </div>
                                         )}
                                       </div>
-                                      
+
                                       {/* Product Details */}
                                       <div className="flex-1 min-w-0">
                                         <p className="text-sm font-medium text-gray-800 truncate hover:text-primary transition-colors" data-testid={`order-product-name-${order.id}-${index}`}>
@@ -672,7 +677,7 @@ export default function Profile() {
                                           Quantity: {item.quantity}
                                         </p>
                                       </div>
-                                      
+
                                       {/* Click indicator */}
                                       <div className="text-gray-400 hover:text-primary transition-colors">
                                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -692,11 +697,11 @@ export default function Profile() {
                               </div>
                             )}
                           </div>
-                          
+
                           <div className="flex flex-col sm:flex-row gap-2 flex-wrap">
-                            <Button 
+                            <Button
                               onClick={() => handleViewReceipt(order)}
-                              variant="outline" 
+                              variant="outline"
                               size="sm"
                               className="border-primary text-primary hover:bg-primary hover:text-white transition-all duration-200"
                               data-testid={`button-view-receipt-${order.id}`}
@@ -704,18 +709,18 @@ export default function Profile() {
                               <Receipt className="w-4 h-4 mr-1" />
                               Receipt
                             </Button>
-                            <Button 
+                            <Button
                               onClick={() => handleTrackOrder(order)}
-                              variant="outline" 
+                              variant="outline"
                               size="sm"
                               className="border-primary text-primary hover:bg-primary hover:text-white transition-all duration-200"
                               data-testid={`button-track-order-${order.id}`}
                             >
                               Track Order
                             </Button>
-                            <Button 
+                            <Button
                               onClick={() => handleViewDetails(order)}
-                              variant="ghost" 
+                              variant="ghost"
                               size="sm"
                               className="text-darkBrown hover:bg-primary hover:text-white transition-all duration-200"
                               data-testid={`button-view-details-${order.id}`}
@@ -723,9 +728,9 @@ export default function Profile() {
                               View Details
                             </Button>
                             {(order.status === 'pending' || order.status === 'processing' || order.status === 'confirmed') && (
-                              <Button 
+                              <Button
                                 onClick={() => handleCancelOrder(order)}
-                                variant="outline" 
+                                variant="outline"
                                 size="sm"
                                 className="border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-200"
                                 data-testid={`button-cancel-order-${order.id}`}
@@ -747,21 +752,21 @@ export default function Profile() {
       </div>
 
       {/* Receipt Modal */}
-      <ReceiptModal 
+      <ReceiptModal
         isOpen={showReceipt}
         onClose={() => setShowReceipt(false)}
         orderData={selectedOrder}
       />
 
       {/* Order Tracking Modal */}
-      <OrderTrackingModal 
+      <OrderTrackingModal
         isOpen={showTracking}
         onClose={() => setShowTracking(false)}
         orderData={trackingOrder}
       />
 
       {/* Order Cancellation Modal */}
-      <OrderCancellationModal 
+      <OrderCancellationModal
         isOpen={showCancellation}
         onClose={() => setShowCancellation(false)}
         orderData={cancellationOrder}

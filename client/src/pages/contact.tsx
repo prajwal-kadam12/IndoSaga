@@ -38,10 +38,11 @@ export default function Contact() {
         message: ""
       });
     },
-    onError: () => {
+    onError: (error: Error) => {
+      const errorMessage = error.message;
       toast({
         title: "Error sending inquiry",
-        description: "Please try again or contact us directly.",
+        description: errorMessage || "Please try again or contact us directly.",
         variant: "destructive",
       });
     },
@@ -85,21 +86,21 @@ export default function Contact() {
             Visit our showroom or send us your requirements - We're here to help create your dream furniture
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-stretch">
           {/* Contact Information */}
           <div className="animate-slideInLeft h-full" style={{ animationDelay: '0.5s' }}>
             <Card className="bg-gradient-to-br from-white via-warmWhite to-accent/5 shadow-2xl border-0 relative overflow-hidden group hover:shadow-3xl transition-all duration-500 h-full flex flex-col">
               <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full opacity-10 group-hover:opacity-20 transition-opacity duration-500"></div>
-              
+
               <CardHeader className="relative z-10 pb-8">
                 <div className="inline-flex items-center bg-gradient-to-r from-primary/15 to-accent/15 rounded-full px-6 py-2 mb-4 shadow-lg animate-bounce" style={{ animationDelay: '0.7s' }}>
                   <span className="text-primary font-bold text-sm">Showroom Info</span>
                 </div>
                 <CardTitle className="text-3xl font-display font-bold bg-gradient-to-r from-darkBrown via-primary to-accent bg-clip-text text-transparent">Visit Our Showroom</CardTitle>
               </CardHeader>
-              
+
               <CardContent className="space-y-8 relative z-10 flex-1">
                 <div className="space-y-8">
                   {[
@@ -145,7 +146,7 @@ export default function Contact() {
                     </div>
                   ))}
                 </div>
-                
+
                 {/* Enhanced Map Placeholder */}
                 <div className="mt-12 animate-fadeInUp" style={{ animationDelay: '1.7s' }}>
                   <div className="relative group/map">
@@ -168,20 +169,20 @@ export default function Contact() {
               </CardContent>
             </Card>
           </div>
-          
+
           {/* Inquiry Form */}
           <div className="animate-slideInRight h-full" style={{ animationDelay: '0.6s' }}>
             <Card className="bg-gradient-to-br from-white via-warmWhite to-accent/5 shadow-2xl border-0 relative overflow-hidden group hover:shadow-3xl transition-all duration-500 h-full flex flex-col">
               <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <div className="absolute top-0 left-0 w-28 h-28 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full opacity-30 group-hover:opacity-50 transition-opacity duration-500 transform -translate-x-10 -translate-y-10"></div>
-              
+
               <CardHeader className="relative z-10 pb-8">
                 <div className="inline-flex items-center bg-gradient-to-r from-primary/15 to-accent/15 rounded-full px-6 py-2 mb-4 shadow-lg animate-bounce" style={{ animationDelay: '0.8s' }}>
                   <span className="text-primary font-bold text-sm">Contact Form</span>
                 </div>
                 <CardTitle className="text-3xl font-display font-bold bg-gradient-to-r from-darkBrown via-primary to-accent bg-clip-text text-transparent">Send us an Inquiry</CardTitle>
               </CardHeader>
-              
+
               <CardContent className="relative z-10 flex-1 px-4 sm:px-6">
                 <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-8">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 animate-slideInUp" style={{ animationDelay: '1s' }}>
@@ -214,7 +215,7 @@ export default function Contact() {
                       />
                     </div>
                   </div>
-                  
+
                   <div className="group animate-slideInUp" style={{ animationDelay: '1.2s' }}>
                     <label className="block text-sm sm:text-lg font-semibold text-primary mb-2 sm:mb-3 group-focus-within:text-accent transition-colors duration-300">
                       Email Address *
@@ -229,7 +230,7 @@ export default function Contact() {
                       data-testid="input-email"
                     />
                   </div>
-                  
+
                   <div className="group animate-slideInUp" style={{ animationDelay: '1.4s' }}>
                     <label className="block text-lg font-semibold text-primary mb-3 group-focus-within:text-accent transition-colors duration-300">
                       Phone Number
@@ -243,13 +244,13 @@ export default function Contact() {
                       data-testid="input-phone"
                     />
                   </div>
-                  
+
                   <div className="group animate-slideInUp" style={{ animationDelay: '1.6s' }}>
                     <label className="block text-lg font-semibold text-primary mb-3 group-focus-within:text-accent transition-colors duration-300">
                       Inquiry Type *
                     </label>
-                    <Select 
-                      value={formData.inquiryType} 
+                    <Select
+                      value={formData.inquiryType}
                       onValueChange={(value) => handleInputChange("inquiryType", value)}
                       required
                     >
@@ -266,7 +267,7 @@ export default function Contact() {
                       </SelectContent>
                     </Select>
                   </div>
-                  
+
                   <div className="group animate-slideInUp" style={{ animationDelay: '1.8s' }}>
                     <label className="block text-lg font-semibold text-primary mb-3 group-focus-within:text-accent transition-colors duration-300">
                       Message *
@@ -281,7 +282,7 @@ export default function Contact() {
                       data-testid="textarea-message"
                     />
                   </div>
-                  
+
                   <div className="animate-slideInUp" style={{ animationDelay: '2s' }}>
                     <Button
                       type="submit"
@@ -323,7 +324,7 @@ export default function Contact() {
             <h2 className="text-4xl font-display font-bold bg-gradient-to-r from-darkBrown via-primary to-accent bg-clip-text text-transparent mb-4 animate-slideInUp" style={{ animationDelay: '2.4s' }}>Experience Excellence</h2>
             <p className="text-xl text-gray-700 max-w-2xl mx-auto leading-relaxed animate-slideInUp" style={{ animationDelay: '2.5s' }}>Discover what makes IndoSaga Furniture your perfect partner for premium teak furniture</p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {[
               {
@@ -351,7 +352,7 @@ export default function Contact() {
               <Card key={index} className="group text-center bg-gradient-to-br from-white via-warmWhite to-primary/5 border-0 shadow-xl hover:shadow-3xl transition-all duration-500 relative overflow-hidden transform hover:scale-105 animate-slideInUp" style={{ animationDelay: item.delay }}>
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full opacity-30 group-hover:opacity-50 transition-opacity duration-500 transform translate-x-6 -translate-y-6"></div>
-                
+
                 <CardContent className="p-10 relative z-10">
                   <div className={`w-20 h-20 bg-gradient-to-br ${item.color} rounded-full mx-auto mb-8 flex items-center justify-center shadow-lg group-hover:shadow-2xl transition-all duration-500 group-hover:scale-125 group-hover:rotate-12`}>
                     <item.icon className="h-10 w-10 text-white" />
@@ -362,7 +363,7 @@ export default function Contact() {
                   <p className="text-gray-600 leading-relaxed text-lg group-hover:text-gray-700 transition-colors duration-300">
                     {item.description}
                   </p>
-                  
+
                   <div className="mt-8 w-full h-1 bg-gradient-to-r from-primary/20 to-accent/20 rounded-full overflow-hidden">
                     <div className="w-0 h-full bg-gradient-to-r from-primary to-accent rounded-full group-hover:w-full transition-all duration-1000 ease-out"></div>
                   </div>

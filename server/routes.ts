@@ -611,6 +611,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
         featuredCount: featuredProducts.length,
         env: process.env.NODE_ENV,
         databaseUrlSet: !!process.env.DATABASE_URL,
+        razorpayInitialized: !!razorpay,
+        razorpayKeys: {
+          hasKeyId: !!keyId,
+          hasKeySecret: !!keySecret,
+          usingTest: !!keyId?.includes('test')
+        },
         timestamp: new Date().toISOString()
       });
     } catch (error: any) {

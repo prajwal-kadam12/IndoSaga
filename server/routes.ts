@@ -2597,9 +2597,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const contactData = insertContactInquirySchema.parse(req.body);
       const inquiry = await (await getStorage()).createContactInquiry(contactData);
 
+      // Validate SMTP configuration
+      if (!process.env.SMTP_USERNAME || !process.env.SMTP_PASSWORD) {
+        console.error("Missing SMTP credentials");
+        return res.status(500).json({
+          message: "Email configuration error: Missing SMTP credentials on server",
+          status: "config_error"
+        });
+      }
+
       // Send email using Node.js directly (Netlify compatible)
       try {
         const transporter = createEmailTransporter();
+
+        // verify connection configuration
+        await transporter.verify();
 
         // Email to Admin
         await transporter.sendMail({
@@ -2643,9 +2655,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
         console.log('✅ Contact emails sent successfully via Nodemailer');
 
-      } catch (emailError) {
+      } catch (emailError: any) {
         console.error('❌ Contact email error:', emailError);
-        // Don't fail the main request if email fails, but log it
+        res.status(500).json({
+          message: "Failed to send email. please check SMTP configuration.",
+          error: emailError.message,
+          code: emailError.code
+        });
+        return;
       }
 
       res.json(inquiry);

@@ -4,8 +4,8 @@ import { registerRoutes } from "../../server/routes";
 
 const app = express();
 app.set("trust proxy", 1);
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ extended: false, limit: "50mb" }));
 
 // Global error handler for Express in serverless environment
 app.use((err: any, _req: any, res: any, _next: any) => {

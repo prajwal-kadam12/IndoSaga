@@ -327,35 +327,39 @@ export default function Profile() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="text-center mb-6">
-                  <div className="w-20 h-20 wood-texture rounded-full mx-auto mb-4 flex items-center justify-center overflow-hidden relative">
-                    {(isEditing ? profileImagePreview : currentUser.profileImage) ? (
-                      <img
-                        src={isEditing ? profileImagePreview! : currentUser.profileImage}
-                        alt="Profile"
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <User className="h-8 w-8 text-white" />
-                    )}
+                  <div className="w-24 h-24 wood-texture rounded-full mx-auto mb-4 flex items-center justify-center relative shadow-xl ring-4 ring-white">
+                    <div className="w-full h-full rounded-full overflow-hidden">
+                      {(isEditing ? profileImagePreview : currentUser.profileImage) ? (
+                        <img
+                          src={isEditing ? profileImagePreview! : currentUser.profileImage}
+                          alt="Profile"
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-primary/30 to-accent/30 flex items-center justify-center">
+                          <User className="h-10 w-10 text-white" />
+                        </div>
+                      )}
+                    </div>
 
                     {/* Profile Picture Upload Options - Only show when editing */}
                     {isEditing && (
-                      <div className="absolute -bottom-2 -right-2 flex space-x-1">
+                      <div className="absolute bottom-0 right-0 flex -mr-4 mb-2 space-x-1 z-10">
                         {/* Gallery Upload */}
-                        <label className="cursor-pointer">
+                        <label className="cursor-pointer group">
                           <input
                             type="file"
                             accept="image/*"
                             onChange={handleProfileImageUpload}
                             className="hidden"
                           />
-                          <div className="w-8 h-8 bg-blue-600 hover:bg-blue-700 rounded-full flex items-center justify-center text-white shadow-lg transition-colors">
+                          <div className="w-9 h-9 bg-blue-600 hover:bg-blue-700 rounded-full flex items-center justify-center text-white shadow-xl transition-all hover:scale-110 border-2 border-white">
                             <ImageIcon className="w-4 h-4" />
                           </div>
                         </label>
 
                         {/* Camera Upload */}
-                        <label className="cursor-pointer">
+                        <label className="cursor-pointer group">
                           <input
                             type="file"
                             accept="image/*"
@@ -363,7 +367,7 @@ export default function Profile() {
                             onChange={handleProfileImageUpload}
                             className="hidden"
                           />
-                          <div className="w-8 h-8 bg-green-600 hover:bg-green-700 rounded-full flex items-center justify-center text-white shadow-lg transition-colors">
+                          <div className="w-9 h-9 bg-green-600 hover:bg-green-700 rounded-full flex items-center justify-center text-white shadow-xl transition-all hover:scale-110 border-2 border-white">
                             <Camera className="w-4 h-4" />
                           </div>
                         </label>
@@ -372,7 +376,7 @@ export default function Profile() {
                         {(profileImagePreview || currentUser.profileImage) && (
                           <button
                             onClick={removeProfileImage}
-                            className="w-8 h-8 bg-red-600 hover:bg-red-700 rounded-full flex items-center justify-center text-white shadow-lg transition-colors"
+                            className="w-9 h-9 bg-red-600 hover:bg-red-700 rounded-full flex items-center justify-center text-white shadow-xl transition-all hover:scale-110 border-2 border-white"
                           >
                             <Trash2 className="w-4 h-4" />
                           </button>
@@ -469,11 +473,11 @@ export default function Profile() {
                 )}
 
                 {isEditing ? (
-                  <div className="flex space-x-2">
+                  <div className="flex space-x-3 pt-4">
                     <Button
                       onClick={handleSave}
                       disabled={updateProfileMutation.isPending}
-                      className="flex-1 bg-primary hover:bg-primary/90 text-white"
+                      className="flex-1 bg-primary hover:bg-primary/90 text-white shadow-md transition-all hover:scale-[1.02] active:scale-95 font-semibold"
                       data-testid="button-save-profile"
                     >
                       {updateProfileMutation.isPending ? (
@@ -492,21 +496,22 @@ export default function Profile() {
                       onClick={handleCancel}
                       variant="outline"
                       disabled={updateProfileMutation.isPending}
-                      className="border-gray-300 text-gray-600 hover:bg-gray-50"
+                      className="border-red-200 text-red-600 hover:bg-red-50 shadow-sm transition-all px-4 group"
+                      title="Cancel Editing"
                       data-testid="button-cancel-edit"
                     >
-                      <X className="h-4 w-4" />
+                      <X className="h-5 w-5 group-hover:rotate-90 transition-transform" />
                     </Button>
                   </div>
                 ) : (
                   <Button
                     onClick={handleEditClick}
                     variant="outline"
-                    className="w-full border-primary text-primary hover:bg-primary hover:text-white transition-colors"
+                    className="w-full border-primary text-primary hover:bg-primary hover:text-white transition-all shadow-sm font-semibold mt-4"
                     data-testid="button-edit-profile"
                   >
                     <Settings className="mr-2 h-4 w-4" />
-                    Edit Profile
+                    Edit Profile Details
                   </Button>
                 )}
               </CardContent>

@@ -1,6 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import session from "express-session";
+import connectPg from "connect-pg-simple";
 import multer from "multer";
 // import sharp from "sharp"; // Moved to dynamic import in route
 import { getStorage } from "./storage";
@@ -391,15 +392,25 @@ async function findSimilarProductsByImage(imageBuffer: Buffer) {
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Use session middleware for client-side Auth0 integration
+  // Implement persistent database session storage for Netlify/Serverless stability
+  const PostgresStore = connectPg(session);
+  const sessionStore = new PostgresStore({
+    conString: process.env.DATABASE_URL,
+    tableName: 'sessions', // Must match neondb_setup.sql
+    createTableIfMissing: false
+  });
+
   app.use(session({
-    secret: process.env.SESSION_SECRET || 'fallback-secret-key',
+    store: sessionStore,
+    secret: process.env.SESSION_SECRET || 'indosaga-stable-session-key-2024',
     resave: false,
     saveUninitialized: false,
+    name: 'indosaga.sid',
     cookie: {
-      secure: false,
+      secure: process.env.NODE_ENV === "production",
       httpOnly: true,
-      maxAge: 24 * 60 * 60 * 1000
+      sameSite: 'lax',
+      maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
     }
   }));
 

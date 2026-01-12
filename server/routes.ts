@@ -47,9 +47,7 @@ import { sendOrderSuccessEmail, sendOrderCancellationEmail, logPHPEmailActivity 
 // Function to create SMTP transporter
 function createEmailTransporter() {
   return nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: false, // true for 465, false for other ports
+    service: 'gmail',
     auth: {
       user: process.env.SMTP_USERNAME,
       pass: process.env.SMTP_PASSWORD,

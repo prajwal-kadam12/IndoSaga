@@ -1,5 +1,6 @@
 import {
   type User,
+  type InsertUser,
   type UpsertUser,
   type Product,
   type InsertProduct,
@@ -29,7 +30,7 @@ export interface IStorage {
   // User operations
   getUser(id: string): Promise<User | undefined>;
   getUserByEmail(email: string): Promise<User | undefined>;
-  createUser(user: User): Promise<User>;
+  createUser(user: InsertUser): Promise<User>;
   upsertUser(user: UpsertUser): Promise<User>;
 
   // Category operations

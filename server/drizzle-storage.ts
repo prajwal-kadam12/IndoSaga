@@ -18,6 +18,7 @@ import {
 import type { IStorage } from './storage';
 import type {
   User,
+  InsertUser,
   UpsertUser,
   Product,
   InsertProduct,
@@ -55,7 +56,7 @@ export class DrizzleStorage implements IStorage {
     return result[0];
   }
 
-  async createUser(user: User): Promise<User> {
+  async createUser(user: InsertUser): Promise<User> {
     const result = await db.insert(users).values(user).returning();
     return result[0];
   }
@@ -71,8 +72,8 @@ export class DrizzleStorage implements IStorage {
         .returning();
       return result[0];
     } else {
-      const newUser: User = {
-        id: nanoid(),
+      // For new user, we let DB generate ID
+      const newUser: InsertUser = {
         email: userData.email,
         name: userData.name ?? null,
         firstName: userData.firstName ?? null,
@@ -82,8 +83,6 @@ export class DrizzleStorage implements IStorage {
         profileImageUrl: userData.profileImageUrl ?? null,
         passwordHash: userData.passwordHash ?? null,
         provider: userData.provider ?? null,
-        createdAt: new Date(),
-        updatedAt: new Date(),
       };
       return await this.createUser(newUser);
     }

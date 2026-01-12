@@ -1321,8 +1321,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
             const newUser = await (await getStorage()).createUser({
               name: orderData.customerName || 'Guest Customer',
               email: orderData.customerEmail,
-              authProvider: 'guest',
-              authId: `guest_${Date.now()}`
+              provider: 'guest',
+              passwordHash: `guest_${Date.now()}`
             });
             userId = newUser.id;
           }
@@ -2700,49 +2700,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ message: "No images uploaded" });
       }
 
-      // Create reviews-images directory if it doesn't exist
-      const fs = await import('fs/promises');
-      const path = await import('path');
-      const uploadsDir = path.join(process.cwd(), 'public', 'uploads', 'reviews');
-
-      try {
-        await fs.access(uploadsDir);
-      } catch {
-        await fs.mkdir(uploadsDir, { recursive: true });
-      }
+      // Since Netlify functions are read-only (except tmp which is ephemeral),
+      // and we are using Postgres, we will store smaller images as Base64 Data URIs directly.
+      // Ideally these should go to S3/Cloudinary, but to keep it zero-config for the user
+      // and consistent with their profile image setup, we use Base64.
 
       const imageUrls: string[] = [];
 
-      // Save each uploaded image
       for (const file of files) {
-        const filename = `review_${Date.now()}_${Math.random().toString(36).substring(2, 15)}.${file.mimetype.split('/')[1]}`;
-        const filepath = path.join(uploadsDir, filename);
-
-        await fs.writeFile(filepath, file.buffer);
-        imageUrls.push(`/uploads/reviews/${filename}`);
+        // Simple optimization could be done here (resize/compress) but for now direct conversion
+        const base64 = file.buffer.toString('base64');
+        const mimeType = file.mimetype;
+        const dataUri = `data:${mimeType};base64,${base64}`;
+        imageUrls.push(dataUri);
       }
 
-      // Store image metadata in JSON file for backup/reference
-      const metadataFile = path.join(uploadsDir, 'images_metadata.json');
-      let metadata = [];
-
-      try {
-        const existingMetadata = await fs.readFile(metadataFile, 'utf-8');
-        metadata = JSON.parse(existingMetadata);
-      } catch {
-        // File doesn't exist yet, start with empty array
-      }
-
-      // Add new image metadata
-      metadata.push({
-        productId: req.params.productId,
-        uploadedAt: new Date().toISOString(),
-        images: imageUrls
-      });
-
-      await fs.writeFile(metadataFile, JSON.stringify(metadata, null, 2));
-
+      // Return the data URIs as "URLs". The frontend will send these back when creating the review,
+      // and they will be stored in the text[] column of the product_reviews table.
       res.json({ imageUrls });
+
     } catch (error) {
       console.error("Error uploading review images:", error);
       res.status(500).json({ message: "Failed to upload images" });

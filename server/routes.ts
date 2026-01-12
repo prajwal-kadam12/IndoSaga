@@ -1131,55 +1131,60 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       console.log('Appointment booked:', appointment);
 
-      // Send appointment emails via PHP handler
+      // Send appointment emails using Node.js directly (Netlify compatible)
       try {
-        const phpEmailData = {
-          customerName,
-          customerEmail,
-          customerPhone: customerPhone || '',
-          appointmentDate: finalDate,
-          appointmentTime: finalTime,
-          meetingType: finalType,
-          notes: notes || ''
-        };
+        const transporter = createEmailTransporter();
 
-        // Execute PHP script directly
-        const { spawn } = await import('child_process');
-        const php = spawn('php', ['php/handlers/book_meeting.php'], {
-          stdio: ['pipe', 'pipe', 'pipe']
+        // Email to Admin
+        await transporter.sendMail({
+          from: `"${customerName}" <${process.env.SMTP_USERNAME}>`,
+          replyTo: customerEmail,
+          to: process.env.ADMIN_EMAIL || process.env.SMTP_USERNAME,
+          subject: `📅 New Appointment: ${finalType} - ${customerName}`,
+          html: `
+            <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
+              <h2 style="color: #8B4513;">New Appointment Request</h2>
+              <p><strong>Customer:</strong> ${customerName}</p>
+              <p><strong>Email:</strong> ${customerEmail}</p>
+              <p><strong>Phone:</strong> ${customerPhone || 'Not provided'}</p>
+              <div style="background-color: #f9f9f9; padding: 15px; border-left: 4px solid #8B4513; margin: 20px 0;">
+                <p><strong>Date:</strong> ${finalDate}</p>
+                <p><strong>Time:</strong> ${finalTime}</p>
+                <p><strong>Type:</strong> ${finalType}</p>
+                <p><strong>Notes:</strong> ${notes || 'None'}</p>
+              </div>
+            </div>
+          `
         });
 
-        // Send JSON data to PHP script
-        php.stdin.write(JSON.stringify(phpEmailData));
-        php.stdin.end();
-
-        let output = '';
-        let errorOutput = '';
-
-        php.stdout.on('data', (data) => {
-          output += data.toString();
+        // Confirmation to Customer
+        await transporter.sendMail({
+          from: `"IndoSaga Furniture" <${process.env.SMTP_USERNAME}>`,
+          to: customerEmail,
+          subject: "Appointment Confirmed - IndoSaga Furniture",
+          html: `
+            <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
+              <h2 style="color: #8B4513;">Appointment Confirmed!</h2>
+              <p>Dear ${customerName},</p>
+              <p>Your appointment has been successfully scheduled.</p>
+              <div style="background-color: #f9f9f9; padding: 15px; border-left: 4px solid #8B4513; margin: 20px 0;">
+                <p><strong>Date:</strong> ${finalDate}</p>
+                <p><strong>Time:</strong> ${finalTime}</p>
+                <p><strong>Type:</strong> ${finalType}</p>
+              </div>
+              <p>We look forward to meeting you!</p>
+              <br>
+              <p>Best regards,</p>
+              <p><strong>IndoSaga Furniture Team</strong></p>
+            </div>
+          `
         });
 
-        php.stderr.on('data', (data) => {
-          errorOutput += data.toString();
-        });
+        console.log('✅ Appointment emails sent successfully via Nodemailer');
 
-        php.on('close', (code) => {
-          if (code === 0 && output) {
-            try {
-              const emailResult = JSON.parse(output);
-              console.log('📧 Meeting emails sent successfully:', emailResult);
-            } catch (parseError) {
-              console.log('📧 Meeting emails processed:', output);
-            }
-          } else {
-            console.error('❌ Meeting email sending failed:', errorOutput || output);
-          }
-        });
-
-      } catch (emailError) {
-        console.error('❌ Meeting email error:', emailError);
-        // Don't fail the main request if email fails
+      } catch (emailError: any) {
+        console.error('❌ Appointment email error:', emailError);
+        // Don't fail the booking if email fails, but log it clearly
       }
 
       res.json(appointment);

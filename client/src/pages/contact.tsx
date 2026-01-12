@@ -44,17 +44,19 @@ export default function Contact() {
       // Try to parse JSON error message if it comes from the API
       // The apiRequest throws "Status: JSON_STRING"
       try {
-        const jsonPart = errorMessage.includes(':')
-          ? errorMessage.split(':').slice(1).join(':').trim()
-          : errorMessage;
+        const jsonStartIndex = errorMessage.indexOf('{');
+        if (jsonStartIndex !== -1) {
+          const jsonPart = errorMessage.substring(jsonStartIndex);
+          const parsed = JSON.parse(jsonPart);
 
-        const parsed = JSON.parse(jsonPart);
-        if (parsed.message) {
-          errorMessage = parsed.message;
-        }
-        if (parsed.error) {
-          // Append technical details if available
-          errorMessage += ` (${parsed.error})`;
+          if (parsed.message) {
+            errorMessage = parsed.message;
+          }
+          if (parsed.error) {
+            // Clean up the error message if it's too technical
+            const cleanError = parsed.error.replace(/\\n/g, ' ').replace(/\s+/g, ' ');
+            errorMessage += ` (${cleanError})`;
+          }
         }
       } catch (e) {
         // Fallback to raw message if parsing fails
